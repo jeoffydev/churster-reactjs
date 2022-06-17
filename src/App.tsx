@@ -6,7 +6,7 @@ import RoutesComponent from './RoutesComponent';
 function App() {
   return (
       <AuthProvider
-          authName={"_auth"} authType={"cookie"}
+          authName={"_authChurchToken"} authType={"cookie"}
           cookieDomain={window.location.hostname}
           cookieSecure={window.location.protocol === "https:"}
       >

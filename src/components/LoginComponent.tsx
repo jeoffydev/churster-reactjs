@@ -3,7 +3,7 @@ import {useIsAuthenticated, useSignIn} from 'react-auth-kit'
 import {useNavigate, Navigate} from 'react-router-dom'
 import axios from "axios";
 
-const Login = () => {
+const LoginComponent = () => {
     const isAuthenticated = useIsAuthenticated()
     const signIn = useSignIn()
     const navigate = useNavigate()
@@ -38,7 +38,7 @@ const Login = () => {
             expiresIn: 120  // Token Expriration time, in minutes
         })) {
             // If Login Successfull, then Redirect the user to secure route
-            navigate('/secure')
+            navigate('/dashboard')
         } else {
             // Else, there must be some error. So, throw an error
             alert("Error Occoured. Try Again")
@@ -48,15 +48,15 @@ const Login = () => {
 
         useEffect(()=>{
             if (isAuthenticated()) {
-                navigate('/secure');
+                navigate('/dashboard');
             }
         },[isAuthenticated, navigate])
 
 
         return (
-            <button onClick={loginHandler}>Log In!!</button>
+            <button role={"login-btn"} name={"login"} onClick={loginHandler}>Log In!!</button>
         )
 
 }
 
-export default Login
+export default LoginComponent

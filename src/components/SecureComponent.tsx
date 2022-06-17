@@ -20,7 +20,7 @@ const SecureComponent = () => {
     return (
         <div>
             <p>{`Hello ${authUser()?.name}   Auth`}</p>
-            <button onClick={handleLogout}>Sign Out!</button>
+            <button role={"sign-out"} onClick={handleLogout}>Sign Out!</button>
         </div>
     )
 }
