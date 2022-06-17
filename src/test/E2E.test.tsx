@@ -5,8 +5,9 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import HomeComponent from "../components/HomeComponent";
 import React from "react";
 import CreateEventComponent from "../components/CreateEventComponent";
+import SecureComponent from "../components/SecureComponent";
 
-test('renders Components non login and logged in', () => {
+test('renders Components of non login and logged in', () => {
     render(
         <AuthProvider
             authName={"_authChurchToken"} authType={"cookie"}
@@ -16,6 +17,7 @@ test('renders Components non login and logged in', () => {
             <BrowserRouter>
                 <HomeComponent/>
                 <LoginComponent />
+                <SecureComponent />
                 <CreateEventComponent/>
             </BrowserRouter>
         </AuthProvider>
