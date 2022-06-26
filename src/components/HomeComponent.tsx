@@ -2,31 +2,34 @@ import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom' 
 import { Card, CardActions, Button, ButtonGroup, CardContent } from "@mui/material"; 
 import {styled} from "@mui/system";  
+import LogoComponent from './GeneralComponent/LogoComponent';
+import TagLineComponent from './GeneralComponent/TagLineComponent';
  
+const CardWrapper  = styled('div') `
+    margin: 1rem;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;      
+    border-radius:0.2rem; 
+`;
+
+const LogoHolder = styled('div')`
+    width: 100%;
+    text-align:center;
+    font-weight:500;
+`; 
 
 const HomeComponent = () => {
-    const navigate = useNavigate() 
-
-    const CardWrapper  = styled('div') `
-        margin: 1rem;
-        display: flex;
-        flex-direction: column; 
-        justify-content: center;
-        align-items: center;      
-        border-radius:0.2rem;
-    `;
-
-    const LogoHolder = styled('div')`
-        font-weight:500;
-    `;
-   
-     
- 
+    const navigate = useNavigate()  
     return (
-        <React.Fragment>  
+        <React.Fragment>   
             <CardWrapper> 
                     <CardContent>
-                        <LogoHolder>Churster</LogoHolder> 
+                        <LogoHolder>
+                            <LogoComponent />
+                            <TagLineComponent />
+                        </LogoHolder> 
                     </CardContent>
                     <CardActions>
                     <ButtonGroup  size="large" aria-label="large button group"> 
