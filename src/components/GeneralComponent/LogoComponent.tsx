@@ -1,6 +1,7 @@
 import React from 'react' 
 import { Link } from 'react-router-dom';
 import {styled} from "@mui/system"; 
+import { chursterString } from '../../Helpers/stringHelper';
 
 const  LogoWrapper  = styled(`div`)(() => ({
     width: '12.5rem',
@@ -12,7 +13,7 @@ const LogoComponent = () => {
  
     return  (<React.Fragment>  
                 <LogoWrapper> 
-                    <Link to='/'> <img src={process.env.PUBLIC_URL + '/logo.png'} alt="Churster Logo" /> </Link>
+                    <Link to='/'> <img src={process.env.PUBLIC_URL + '/logo.png'} alt={chursterString.logoTitle} /> </Link>
                 </LogoWrapper >
             </React.Fragment>); 
 }

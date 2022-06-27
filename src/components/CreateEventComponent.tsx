@@ -4,7 +4,7 @@ const CreateEventComponent = () => {
 
     return (
         <div>
-            Create Event
+            Create Event soon...
         </div>
     )
 }

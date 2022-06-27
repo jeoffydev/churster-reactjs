@@ -6,6 +6,7 @@ import LoginComponent from './components/LoginComponent'
 import SecureComponent from './components/SecureComponent'
 import CreateEventComponent from "./components/CreateEventComponent";
 import {useIsAuthenticated } from 'react-auth-kit'
+import { chursterLink } from './Helpers/routeHelper'
 const RoutesComponent = () => {
     const isAuthenticated = useIsAuthenticated()
 
@@ -13,14 +14,14 @@ const RoutesComponent = () => {
         <BrowserRouter>
             <Routes>
                 <Route path={'/'} element={<HomeComponent/>}/>
-                <Route path={'/login' } element={<LoginComponent/>}/>
-                {isAuthenticated() && <Route path={'/dashboard'} element={
-                    <RequireAuth loginPath={'/login'}>
+                <Route path={chursterLink.contractor} element={<LoginComponent/>}/>
+                {isAuthenticated() && <Route path={chursterLink.dashboard} element={
+                    <RequireAuth loginPath={chursterLink.contractor}>
                         <SecureComponent/>
                     </RequireAuth>
                 }/>}
                 {isAuthenticated() && <Route path={'/create-event'} element={
-                    <RequireAuth loginPath={'/login'}>
+                    <RequireAuth loginPath={chursterLink.contractor}>
                         <CreateEventComponent/>
                     </RequireAuth>
                 }/>}

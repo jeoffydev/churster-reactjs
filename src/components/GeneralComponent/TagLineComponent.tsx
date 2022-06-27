@@ -1,6 +1,7 @@
 import React from 'react'  
 import { ExtraPalette } from '../../Helpers/constant'; 
 import styled from "styled-components"; 
+import { chursterString } from '../../Helpers/stringHelper';
  
 
 const TagWrapper = styled(`div`)(({ color }) => ({
@@ -16,7 +17,7 @@ const TagLineComponent = () => {
  
     return  (<React.Fragment>  
                 <TagWrapper color={ExtraPalette.BodyColor} > 
-                    Login. Add event. Send to Members
+                    {chursterString.tagline}
                 </TagWrapper >
             </React.Fragment>);
 }

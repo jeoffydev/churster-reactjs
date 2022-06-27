@@ -2,6 +2,7 @@ import React, {useEffect} from 'react'
 import {useIsAuthenticated, useSignIn} from 'react-auth-kit'
 import {useNavigate, Navigate} from 'react-router-dom'
 import axios from "axios";
+import { chursterLink } from '../Helpers/routeHelper';
 
 const LoginComponent = () => {
     const isAuthenticated = useIsAuthenticated()
@@ -38,7 +39,7 @@ const LoginComponent = () => {
             expiresIn: 120  // Token Expriration time, in minutes
         })) {
             // If Login Successfull, then Redirect the user to secure route
-            navigate('/dashboard')
+            navigate(chursterLink.dashboard)
         } else {
             // Else, there must be some error. So, throw an error
             alert("Error Occoured. Try Again")
@@ -48,13 +49,13 @@ const LoginComponent = () => {
 
         useEffect(()=>{
             if (isAuthenticated()) {
-                navigate('/dashboard');
+                navigate(chursterLink.dashboard);
             }
         },[isAuthenticated, navigate])
 
 
         return (
-            <button role={"login-btn"} name={"login"} onClick={loginHandler}>Log In!!</button>
+            <button role={"login-btn"} name={"login"} onClick={loginHandler}>Log In soon!!</button>
         )
 
 }

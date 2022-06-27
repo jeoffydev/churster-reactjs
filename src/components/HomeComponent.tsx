@@ -4,6 +4,9 @@ import {   CardActions, Button, ButtonGroup, CardContent } from "@mui/material";
 import {styled} from "@mui/system";  
 import LogoComponent from './GeneralComponent/LogoComponent';
 import TagLineComponent from './GeneralComponent/TagLineComponent';
+import { chursterLink } from '../Helpers/routeHelper';
+import LoginFormComponent from './FormComponent/LoginFormComponent';
+import { chursterString } from '../Helpers/stringHelper';
 
 
 const CardWrapper = styled(`div`)(() => ({
@@ -32,10 +35,13 @@ const HomeComponent = () => {
                             <TagLineComponent />
                         </LogoHolder> 
                     </CardContent>
+                    <CardContent> 
+                        <LoginFormComponent />
+                    </CardContent>
                     <CardActions>
                     <ButtonGroup  size="large" aria-label="large button group"> 
-                        <Button disabled={true} >Member</Button>
-                        <Button onClick={()=> navigate('/login')}>Contractor</Button>
+                        <Button disabled={true} >{chursterString.member}</Button>
+                        <Button onClick={()=> navigate(chursterLink.contractor)}>{chursterString.contractor}</Button>
                     </ButtonGroup> 
                     </CardActions>  
             </CardWrapper> 
