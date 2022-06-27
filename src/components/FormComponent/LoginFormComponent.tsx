@@ -22,7 +22,7 @@ const TextFieldEmail = styled(TextField)(() => ({
     background: ExtraPalette.c_fff,
     border: `1px solid ${ExtraPalette.BlueColor}`, 
     borderRadius: '0.938rem',
-    boxShadow: '12px 26px 50px rgba(90, 108, 234, 0.07)',
+    boxShadow: '12px 26px 50px rgba(90, 108, 234, 0.07) !important',
     "& .MuiOutlinedInput-root":{
         borderRadius: '0.938rem',
     },
