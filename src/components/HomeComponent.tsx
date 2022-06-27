@@ -1,24 +1,25 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router-dom' 
-import { Card, CardActions, Button, ButtonGroup, CardContent } from "@mui/material"; 
+import {   CardActions, Button, ButtonGroup, CardContent } from "@mui/material";
 import {styled} from "@mui/system";  
 import LogoComponent from './GeneralComponent/LogoComponent';
 import TagLineComponent from './GeneralComponent/TagLineComponent';
- 
-const CardWrapper  = styled('div') `
-    margin: 1rem;
-    display: flex;
-    flex-direction: column; 
-    justify-content: center;
-    align-items: center;      
-    border-radius:0.2rem; 
-`;
 
-const LogoHolder = styled('div')`
-    width: 100%;
-    text-align:center;
-    font-weight:500;
-`; 
+
+const CardWrapper = styled(`div`)(() => ({
+    margin: '1rem',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius:'0.2rem'
+}));
+
+const LogoHolder = styled(`div`)(() => ({
+    width: '100%',
+    textAlign:'center',
+    fontWeight: '500'
+}));
 
 const HomeComponent = () => {
     const navigate = useNavigate()  
