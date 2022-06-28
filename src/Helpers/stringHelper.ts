@@ -9,5 +9,11 @@ export enum chursterString {
     logoTitle = "Churster Logo", 
     home = "Home",
     about = "About",
-    Contact = "Contact"
+    Contact = "Contact",
+
+    //Error messages
+
+    emailRequired ="Email required",
+    passwordRequired = "Password required"
+
 }

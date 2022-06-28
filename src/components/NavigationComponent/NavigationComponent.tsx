@@ -13,7 +13,7 @@ import { ExtraPalette } from '../../Helpers/constant';
 
 const  MenuWrapper  = styled(Box)(() => ({ 
     display:'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-end', 
     "& .MuiBottomNavigation-root":{
         backgroundColor:'transparent'
     },

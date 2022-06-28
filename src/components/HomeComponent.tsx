@@ -7,7 +7,7 @@ import TagLineComponent from './GeneralComponent/TagLineComponent';
 import { chursterLink } from '../Helpers/routeHelper';
 import LoginFormComponent from './FormComponent/LoginFormComponent';
 import { chursterString } from '../Helpers/stringHelper';
-import { useForm } from "react-hook-form";
+
 
 const CardWrapper = styled(`div`)(() => ({
     margin: '1rem',
@@ -15,7 +15,7 @@ const CardWrapper = styled(`div`)(() => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius:'0.2rem'
+    borderRadius:'0.2rem',  
 }));
 
 const LogoHolder = styled(`div`)(() => ({
@@ -25,7 +25,8 @@ const LogoHolder = styled(`div`)(() => ({
 }));
 
 const HomeComponent = () => {
-    const navigate = useNavigate()  
+    const navigate = useNavigate() 
+   
     return (
         <React.Fragment>   
             <CardWrapper> 
