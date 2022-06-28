@@ -7,4 +7,7 @@ export enum chursterString {
     contractor ="Contractor",
     member ="Member",
     logoTitle = "Churster Logo", 
+    home = "Home",
+    about = "About",
+    Contact = "Contact"
 }

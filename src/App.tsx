@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { AuthProvider } from 'react-auth-kit';
-import RoutesComponent from './RoutesComponent';
+import RoutesComponent from './RoutesComponent'; 
 
 function App() {
   return (
@@ -9,8 +9,9 @@ function App() {
           authName={"_authChurchToken"} authType={"cookie"}
           cookieDomain={window.location.hostname}
           cookieSecure={window.location.protocol === "https:"}
-      >
-          <RoutesComponent/>
+      >   
+            
+            <RoutesComponent/> 
       </AuthProvider>
   );
 }

@@ -7,13 +7,16 @@ import SecureComponent from './components/SecureComponent'
 import CreateEventComponent from "./components/CreateEventComponent";
 import {useIsAuthenticated } from 'react-auth-kit'
 import { chursterLink } from './Helpers/routeHelper'
+import NavigationComponent from './components/NavigationComponent/NavigationComponent'
 const RoutesComponent = () => {
     const isAuthenticated = useIsAuthenticated()
 
     return (
         <BrowserRouter>
+            <NavigationComponent />
             <Routes>
-                <Route path={'/'} element={<HomeComponent/>}/>
+                <Route path={chursterLink.home} element={<HomeComponent/>}/>
+                <Route path={chursterLink.about} element={<HomeComponent/>}/>
                 <Route path={chursterLink.contractor} element={<LoginComponent/>}/>
                 {isAuthenticated() && <Route path={chursterLink.dashboard} element={
                     <RequireAuth loginPath={chursterLink.contractor}>
