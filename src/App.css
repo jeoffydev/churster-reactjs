@@ -1,9 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Sacramento&display=swap');
-
+html,body{
+  height: 100%;
+}
 body{
   background: url('./../public/body-bg.png') no-repeat top left;
   font-family: 'Inter', sans-serif !important;
   font-weight: 300 !important;
   background-color: #F1F3F4;
   margin:0px; 
+  color: #808080;
+ 
+}
+
+#root{
+  display:flex;
+  flex-direction: column;
+  height: 100vh; 
 }

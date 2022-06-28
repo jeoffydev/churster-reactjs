@@ -11,9 +11,12 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { chursterLink } from '../../Helpers/routeHelper';
 import { ExtraPalette } from '../../Helpers/constant';
 
-const  MenuWrapper  = styled(Box)(() => ({ 
+const  MenuWrapper  = styled(Box)(() => ({  
     display:'flex',
-    justifyContent: 'flex-end', 
+    justifyContent: 'flex-end',  
+    alignItems: 'center', 
+    marginBottom:'1rem',
+    flex:0.7,
     "& .MuiBottomNavigation-root":{
         backgroundColor:'transparent'
     },
@@ -42,7 +45,7 @@ const NavigationComponent = () => {
                         >
                             <BottomNavigationAction onClick={()=> navigate(chursterLink.home)}  label={chursterString.home} icon={<HomeIcon iconColour={isHomeActive} />} />
                             <BottomNavigationAction onClick={()=> navigate(chursterLink.about)}  label={chursterString.about} icon={<AboutIcon iconColour={isAboutActive} />} />
-                            <BottomNavigationAction onClick={()=> navigate(chursterLink.contact)} label={chursterString.Contact} icon={<ContactIcon iconColour={isContactActive} />} />
+                            <BottomNavigationAction onClick={()=> navigate(chursterLink.contact)} label={chursterString.contact} icon={<ContactIcon iconColour={isContactActive} />} />
                         </BottomNavigation> 
                 </MenuWrapper >
             </React.Fragment>); 

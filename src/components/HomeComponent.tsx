@@ -10,11 +10,12 @@ import { chursterString } from '../Helpers/stringHelper';
 
 
 const CardWrapper = styled(`div`)(() => ({
-    margin: '1rem',
+    margin: '1rem 0 2rem',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    flex: '1', 
     borderRadius:'0.2rem',  
 }));
 
@@ -38,13 +39,7 @@ const HomeComponent = () => {
                     </CardContent>
                     <CardContent> 
                         <LoginFormComponent />
-                    </CardContent>
-                    <CardActions>
-                    <ButtonGroup  size="large" aria-label="large button group"> 
-                        <Button disabled={true} >{chursterString.member}</Button>
-                        <Button onClick={()=> navigate(chursterLink.contractor)}>{chursterString.contractor}</Button>
-                    </ButtonGroup> 
-                    </CardActions>  
+                    </CardContent>   
             </CardWrapper> 
         </React.Fragment>
     )

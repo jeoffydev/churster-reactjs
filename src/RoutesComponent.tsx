@@ -11,18 +11,22 @@ import NavigationComponent from './components/NavigationComponent/NavigationComp
 import FooterComponent from './components/GeneralComponent/FooterComponent'
 import {styled} from "@mui/system"; 
 
-const  PageWrapper  = styled(`div`)(() => ({
-     border:'1px solid #000',
-     diplay:'flex',
-     flexDirection:'column',
-     justifyContent:'center',  
+const  PageWrapper  = styled(`div`)(() => ({ 
+     display:'flex',
+     flexDirection:'column',  
+     flexWrap: 'nowrap',
+     minHeight: '100%',
+     justifyContent: 'space-between',
+     alignItems: 'stretch',
+     alignContent: 'stretch',
+      
 }));
 
 
 const RoutesComponent = () => {
     const isAuthenticated = useIsAuthenticated()
 
-    return (
+    return ( 
         <BrowserRouter>
             <PageWrapper>
                 <NavigationComponent />
