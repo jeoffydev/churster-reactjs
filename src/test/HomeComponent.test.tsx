@@ -8,7 +8,7 @@ import CreateEventComponent from "../components/CreateEventComponent";
 
 
 
-describe("Login Component", () => {
+describe("Home Component", () => {
     beforeEach(() => {
         jest.useFakeTimers();
         jest.restoreAllMocks();
@@ -28,18 +28,23 @@ describe("Login Component", () => {
                 cookieSecure={window.location.protocol === "https:"}
             >
                 <BrowserRouter>
-                    <HomeComponent/>
-                    <LoginComponent />
+                    <HomeComponent/> 
                     <CreateEventComponent/>
                 </BrowserRouter>
             </AuthProvider>
         );
     };
 
-    it("renders Login Component without an issue",   async() => {
+    it("renders Home Component without an issue",   async() => {
         renderContainer();
-        const signInBtn = screen.getByRole("login-btn");
-        expect(signInBtn).toBeInTheDocument();
+        const usernamePlaceHolder = screen.getByPlaceholderText(/Username/i);
+        expect(usernamePlaceHolder).toBeInTheDocument();
+
+        const passwordPlaceHolder = screen.getByPlaceholderText(/Password/i);
+        expect(passwordPlaceHolder).toBeInTheDocument();
+
+        const button = screen.getAllByRole("button");
+        expect(button).toBeTruthy();
 
     });
 });

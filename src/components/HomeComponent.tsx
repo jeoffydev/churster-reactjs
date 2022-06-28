@@ -7,7 +7,7 @@ import TagLineComponent from './GeneralComponent/TagLineComponent';
 import { chursterLink } from '../Helpers/routeHelper';
 import LoginFormComponent from './FormComponent/LoginFormComponent';
 import { chursterString } from '../Helpers/stringHelper';
-
+import { useForm } from "react-hook-form";
 
 const CardWrapper = styled(`div`)(() => ({
     margin: '1rem',
