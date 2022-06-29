@@ -2,8 +2,7 @@ import { render, screen } from '@testing-library/react';
 import LoginComponent from "../components/LoginComponent";
 import { AuthProvider } from 'react-auth-kit';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import HomeComponent from "../components/HomeComponent";
-import React from "react";
+import HomeComponent from "../components/HomeComponent"; 
 import CreateEventComponent from "../components/CreateEventComponent";
 import SecureComponent from "../components/SecureComponent";
 

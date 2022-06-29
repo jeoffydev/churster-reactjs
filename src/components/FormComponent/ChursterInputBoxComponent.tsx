@@ -1,15 +1,9 @@
-import React from 'react'
+import React, { SVGProps } from 'react'
 import { ExtraPalette } from '../../Helpers/constant';
-import styled from "styled-components";
-import Box from '@mui/material/Box';
+import styled from "styled-components"; 
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
-import EmailIcon from '../../Icons/EmailIcon';
-import Button from '@mui/material/Button';
-import { PasswordIcon } from './../../Icons/PasswordIcon';
-import { SubmitIcon } from './../../Icons/SubmitIcon';
-import { chursterString } from '../../Helpers/stringHelper';
-import { ILoginForm } from './../../Types/chursterType';
+import EmailIcon from '../../Icons/EmailIcon'; 
 import {   Control, Controller } from "react-hook-form";
 
 
@@ -41,39 +35,46 @@ const ChursterTextField  = styled(TextField)(() => ({
 
 interface IProps{
     name: string;
-    type: string;
+    type: string | undefined;
     control: Control<any>;
-    required: boolean;
-    placeholder?: string;
-    errorMessage?: string;
-    defaultValue?: string;
+    required?: boolean;
+    placeholder?: string | undefined;
+    errorMessage?: string | undefined;
+    defaultValue?: string; 
+    icon?: SVGProps<SVGSVGElement> | null;
+    children?:  React.ReactNode;
 }
 
 const ChursterInputBoxComponent = ( props: IProps)  => {
-    const { name, type, control, defaultValue, required, placeholder, errorMessage } = props;
+    const { name, type, control, defaultValue, required, placeholder, errorMessage, icon, children,  ...otherProps } = props;
+
+    const isRequired = required ? errorMessage : false; 
+
     return  (
         <React.Fragment>
 
                     <Controller
                         name={name}
                         control={control}
-                        defaultValue=""
-                        rules={{ required: "Testing required" }}
+                        defaultValue= {defaultValue}
+                        rules={{ required: isRequired }}
                         render={({
-                                     field: { onChange, value},
-                                     fieldState: { error }
-                                 }) => ( <ChursterTextField
-                                onChange={onChange}
-                                value={value}
-                                id="outlined-start-adornment"
-                                InputProps={{
-                                    startAdornment: <InputAdornment position="start"><EmailIcon /></InputAdornment>,
-                                    placeholder:'Username',
-                                    type:'email'
-                                }}
-                                error={!!error}
-                                helperText={error ? error.message : null}
-                            />
+                                    field: { onChange, value},
+                                    fieldState: { error }
+                                 }) => ( 
+                                 <ChursterTextField
+                                    onChange={onChange}
+                                    value={value}
+                                    id="outlined-start-adornment"
+                                    InputProps={{
+                                        startAdornment: <InputAdornment position="start">  {children}  </InputAdornment>,
+                                        placeholder: placeholder,
+                                        type: type
+                                    }}
+                                    error={!!error}
+                                    helperText={error ? error.message : null}
+                                    {...(otherProps as any)}
+                                />
                         )}
                     />
 

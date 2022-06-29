@@ -1,16 +1,16 @@
 import React from 'react'  
 import { ExtraPalette } from '../../Helpers/constant'; 
 import styled from "styled-components"; 
-import Box from '@mui/material/Box'; 
-import InputAdornment from '@mui/material/InputAdornment'; 
+import Box from '@mui/material/Box';   
 import TextField from '@mui/material/TextField'; 
 import EmailIcon from '../../Icons/EmailIcon';
 import Button from '@mui/material/Button';
 import { PasswordIcon } from './../../Icons/PasswordIcon';
 import { SubmitIcon } from './../../Icons/SubmitIcon';
 import { chursterString } from '../../Helpers/stringHelper';
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import { useForm,  SubmitHandler } from "react-hook-form";
 import { ILoginForm } from './../../Types/chursterType';
+import ChursterInputBoxComponent from './ChursterInputBoxComponent';
 
 const BoxWrapper = styled(Box)(() => ({
     display:'flex',
@@ -18,31 +18,7 @@ const BoxWrapper = styled(Box)(() => ({
     marginBottom:"0.5rem",  
   }));
 
-  
-const TextFieldLogin = styled(TextField)(() => ({
-    border: `1px solid ${ExtraPalette.BlueColor}`, 
-    borderRadius: '0.938rem',
-    boxShadow: '12px 26px 50px rgba(90, 108, 234, 0.07) !important',
-    "& .MuiOutlinedInput-root":{
-        borderRadius: '0.938rem',
-        background: ExtraPalette.c_fff,
-    },
-    "& input":{
-        borderTopRightRadius: '0.938rem',
-        borderBottomRightRadius: '0.938rem',
-    },
-    "& input, input:-internal-autofill-selected":{
-        background: ExtraPalette.c_fff,
-        backgroundColor: ExtraPalette.c_fff,
-        WebkitBoxShadow: "0 0 0 1000px white inset"
-    }, 
-    "& input::placeholder":{
-        fontSize:'0.813rem'
-    },
-    color: ExtraPalette.BodyColor,
-    fontSize:'0.813rem !important'
-  })); 
-
+   
   const BoxWrapperExtension = styled(BoxWrapper)(() => ({ 
      justifyContent:'flex-end'
   }));
@@ -71,52 +47,27 @@ const LoginFormComponent = () => {
             <React.Fragment>   
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <BoxWrapper>
-                        <Controller
-                            name="email"
-                            control={control}
-                            defaultValue=""
-                            rules={{ required: chursterString.emailRequired }}
-                            render={({
-                                field: { onChange, value},
-                                fieldState: { error }
-                              }) => ( <TextFieldLogin  
-                                        onChange={onChange} 
-                                        value={value}
-                                        id="outlined-start-adornment"   
-                                        InputProps={{
-                                            startAdornment: <InputAdornment position="start"><EmailIcon /></InputAdornment>,
-                                            placeholder:'Username',
-                                            type:'email'
-                                        }}
-                                        error={!!error}
-                                        helperText={error ? error.message : null}
-                                    /> 
-                                )}
-                            />
+                        <ChursterInputBoxComponent 
+                              name ={"email"}
+                              type={"email"}
+                              control={control}
+                              required = {true}
+                              placeholder="Username"
+                              errorMessage={chursterString.emailRequired}
+                              defaultValue={""}
+                         ><EmailIcon /></ChursterInputBoxComponent>
+ 
                     </BoxWrapper> 
                     <BoxWrapper>
-                        <Controller
-                            name="password"
-                            control={control}
-                            defaultValue=""
-                            rules={{ required: chursterString.passwordRequired }}
-                            render={({
-                                field: { onChange, value},
-                                fieldState: { error }
-                              }) => ( <TextFieldLogin 
-                                        onChange={onChange} 
-                                        value={value}
-                                        id="outlined-start-adornment"   
-                                        InputProps={{
-                                            startAdornment: <InputAdornment position="start"><PasswordIcon /></InputAdornment>,
-                                            placeholder:'Password',
-                                            type:'password'
-                                        }}
-                                        error={!!error}
-                                        helperText={error ? error.message : null}
-                                    /> 
-                                )}
-                            />
+                        <ChursterInputBoxComponent 
+                              name ={"password"}
+                              type={"password"}
+                              control={control}
+                              required = {true}
+                              placeholder="Password"
+                              errorMessage={chursterString.passwordRequired}
+                              defaultValue={""}
+                         ><PasswordIcon /></ChursterInputBoxComponent> 
 
                     </BoxWrapper>
                     <BoxWrapperExtension>
