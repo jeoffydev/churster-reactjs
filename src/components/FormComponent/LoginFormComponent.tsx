@@ -118,7 +118,6 @@ const LoginFormComponent = () => {
                                 )}
                             />
 
-                        
                     </BoxWrapper>
                     <BoxWrapperExtension>
                         <ButtonSubmit type='submit' variant="contained"  >
