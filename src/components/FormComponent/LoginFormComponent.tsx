@@ -1,8 +1,7 @@
-import React from 'react'  
+import React, {useState} from 'react'  
 import { ExtraPalette } from '../../Helpers/constant'; 
 import styled from "styled-components"; 
-import Box from '@mui/material/Box';   
-import TextField from '@mui/material/TextField'; 
+import Box from '@mui/material/Box';    
 import EmailIcon from '../../Icons/EmailIcon';
 import Button from '@mui/material/Button';
 import { PasswordIcon } from './../../Icons/PasswordIcon';
@@ -11,6 +10,8 @@ import { chursterString } from '../../Helpers/stringHelper';
 import { useForm,  SubmitHandler } from "react-hook-form";
 import { ILoginForm } from './../../Types/chursterType';
 import ChursterInputBoxComponent from './ChursterInputBoxComponent';
+import { GetLogin } from '../../Queries/LoginQueries';
+import { useQuery, useMutation } from "react-query";
 
 const BoxWrapper = styled(Box)(() => ({
     display:'flex',
@@ -34,14 +35,27 @@ const BoxWrapper = styled(Box)(() => ({
     }
   }));
  
-
+ 
 
 const LoginFormComponent = () => {  
+    const [userLogin, setUserLogin] = useState<ILoginForm>({
+        email: "",
+        password: ""
+    });
+    const [enableLogin, setEnableLogin] = useState(false);
     const { handleSubmit, control } = useForm<ILoginForm>();
+
+     const loginStatus = useQuery(['login', userLogin],  ()=>GetLogin(userLogin), {
+        enabled: enableLogin,
+      });
+      console.log("LOGIN STAT ", loginStatus)
+      console.log("enableLogin ", enableLogin)
   
     const onSubmit: SubmitHandler<ILoginForm> = data => {
-        console.log(data)
-    };
+        //console.log(data)
+        setEnableLogin(true);
+        setUserLogin(data);
+    }
 
     return  (
             <React.Fragment>   

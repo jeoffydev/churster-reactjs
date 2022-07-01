@@ -3,6 +3,7 @@ import './App.css';
 import { AuthProvider } from 'react-auth-kit';
 import RoutesComponent from './RoutesComponent'; 
 import { QueryClientProvider, QueryClient } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools'
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
               
               <RoutesComponent/> 
         </AuthProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
   );
 }
