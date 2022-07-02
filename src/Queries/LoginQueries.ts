@@ -1,15 +1,29 @@
  
 import axios from "axios";
 import { ILoginForm } from './../Types/chursterType'; 
-
+import { isLocalhost } from './Setup';
  
-export const GetLogin = async (user:ILoginForm) => {
-    const { email, password } = user;   
-    return await axios.post('http://localhost:8000/api/contractors/login',{
+ /**
+  *  Note: the axios global Authorisation header is in RoutesComponent.tsx
+  * @param data 
+  * @returns 
+  */
+const url = isLocalhost();  
+
+export async function loginQuery(data: ILoginForm) {
+    const {email, password } = data;
+    
+    const response = await axios.post(`${url}/api/contractors/login`, { 
         email,
-        password
-    });    
-};
+        password 
+    })  
+    return  response;
+}
+
+export async function logoutQuery() {   
+    const response = await axios.get(`${url}/api/contractors/logout`, { }) 
+    return  response;
+}
  
 
  

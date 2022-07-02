@@ -17,8 +17,12 @@ export enum chursterString {
 
 
     //Error messages
-
+    loginErrorMessage = "That email and password combination is incorrect.",
     emailRequired ="Email required",
-    passwordRequired = "Password required"
+    passwordRequired = "Password required",
+
+    //TopNav secure strings
+    changePassword = "Change Password",
+    logout = "Logout"
 
 }

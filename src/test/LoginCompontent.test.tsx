@@ -1,10 +1,10 @@
-import {fireEvent, render, screen, waitFor} from '@testing-library/react';
+import { render, screen, waitFor} from '@testing-library/react';
 import LoginComponent from "../components/LoginComponent";
 import { AuthProvider } from 'react-auth-kit';
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import HomeComponent from "../components/HomeComponent";
-import React from "react";
+import { BrowserRouter  } from 'react-router-dom'
+import HomeComponent from "../components/HomeComponent"; 
 import CreateEventComponent from "../components/CreateEventComponent";
+import { QueryClientProvider, QueryClient } from 'react-query';
 
 
 
@@ -20,19 +20,21 @@ describe("Login Component", () => {
     });
 
     const renderContainer = () => {
-
+        const queryClient = new QueryClient();
         return  render(
-            <AuthProvider
-                authName={"_authChurchToken"} authType={"cookie"}
-                cookieDomain={window.location.hostname}
-                cookieSecure={window.location.protocol === "https:"}
-            >
-                <BrowserRouter>
-                    <HomeComponent/>
-                    <LoginComponent />
-                    <CreateEventComponent/>
-                </BrowserRouter>
-            </AuthProvider>
+            <QueryClientProvider client={queryClient}>
+                <AuthProvider
+                    authName={"_authChurchToken"} authType={"cookie"}
+                    cookieDomain={window.location.hostname}
+                    cookieSecure={window.location.protocol === "https:"}
+                >
+                    <BrowserRouter>
+                        <HomeComponent/>
+                        <LoginComponent />
+                        <CreateEventComponent/>
+                    </BrowserRouter>
+                </AuthProvider>
+            </QueryClientProvider>
         );
     };
 
