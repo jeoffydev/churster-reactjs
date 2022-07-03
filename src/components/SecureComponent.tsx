@@ -1,9 +1,8 @@
 import React  from 'react'
-import { useAuthUser, useSignOut, useIsAuthenticated, useAuthHeader  } from 'react-auth-kit'
+import { useAuthUser,   useIsAuthenticated, useAuthHeader  } from 'react-auth-kit'
 import {useNavigate} from 'react-router-dom';
 import { useAtom } from 'jotai';
-import { userDetailsAtom, userOrganisationAtom } from './../Helpers/AuthAtomObject';
- 
+import { userDetailsAtom, userOrganisationAtom } from './../Helpers/AuthAtomObject'; 
 
 const SecureComponent = () => { 
     const authUser = useAuthUser()
