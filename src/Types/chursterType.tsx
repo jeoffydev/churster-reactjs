@@ -1,8 +1,7 @@
 export  interface ILoginForm {
   email: string;
   password: string;
-}  
-
+}   
 
 export interface IUserOrganisation{
   id:  number;
@@ -54,3 +53,9 @@ export interface IUser  {
   userDetails: IUserDetails;
   userOrganisation:   IUserOrganisation
 } 
+
+export interface IUserOptions {  
+  isAuthenticated: boolean;
+  userID: string; 
+  isEnabled: boolean;
+}

@@ -20,6 +20,11 @@ export async function loginQuery(data: ILoginForm) {
     return  response;
 }
 
+export async function userDetailsQuery(id: number) { 
+    const response = await axios.get(`${url}/api/contractors/user/${id}`)  
+    return  response;
+}
+
 export async function logoutQuery() {   
     const response = await axios.get(`${url}/api/contractors/logout`, { }) 
     return  response;

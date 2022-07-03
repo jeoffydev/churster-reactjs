@@ -49,8 +49,7 @@ const ButtonSubmit = styled(Button)(()=>({
 const CircularLoadingStyled = styled(CircularProgress)(()=>({ 
      color: `${ExtraPalette.c_ffffff} !important`
 }));
-
-
+ 
 
 const BackdropLoading = styled(Backdrop)(()=>({ 
     color: ExtraPalette.c_fff,
@@ -100,7 +99,7 @@ const LoginFormComponent = () => {
                 token: loginMutation.data.data.jwt, //Just a random token
                 tokenType: 'Bearer',    // Token type set as Bearer
                 authState: { name: loginMutation.data.data.userDetails.name, uid:  loginMutation.data.data.userDetails.id },   // Dummy auth user state
-                expiresIn: 2  // => 1 year is 525600, Token Expriration time, in minutes 
+                expiresIn: 525600  // => 1 year is 525600, Token Expriration time, in minutes 
             })) { 
                 //Save to atom or Redux
                 setUserDetails(loginMutation.data.data.userDetails);

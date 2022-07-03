@@ -23,6 +23,9 @@ export enum chursterString {
 
     //TopNav secure strings
     changePassword = "Change Password",
-    logout = "Logout"
+    logout = "Logout",
+
+    //Throw error message
+    throwErrorMessage = "Something wrong with the request.",
 
 }
