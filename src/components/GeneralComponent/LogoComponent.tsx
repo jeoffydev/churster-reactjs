@@ -9,12 +9,13 @@ const  LogoWrapper  = styled(`div`)(() => ({
     height: '2.346rem',
     margin: '0px auto'
 }));
+ 
 
 const LogoComponent = () => {  
  
     return  (<React.Fragment>  
                 <LogoWrapper> 
-                    <Link to={chursterLink.home}> <img src={process.env.PUBLIC_URL + '/logo.png'} alt={chursterString.logoTitle} /> </Link>
+                    <Link to={chursterLink.home}> <img src={process.env.PUBLIC_URL + '/logo.png'} alt={chursterString.logoTitle} style={{width: '12.5rem', height:'auto'}} /> </Link>
                 </LogoWrapper >
             </React.Fragment>); 
 }

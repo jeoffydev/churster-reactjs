@@ -28,4 +28,8 @@ export enum chursterString {
     //Throw error message
     throwErrorMessage = "Something wrong with the request.",
 
+    //Sidebar
+    services = "Services",
+    members = "Members",
+
 }

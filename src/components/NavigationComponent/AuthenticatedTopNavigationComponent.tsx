@@ -13,15 +13,20 @@ import {   useMutation } from "react-query";
 import { logoutQuery } from '../../Queries/LoginQueries';
 import { useAuthUser, useSignOut    } from 'react-auth-kit'
 import { chursterLink } from '../../Helpers/routeHelper';
+import LogoComponent from '../GeneralComponent/LogoComponent';
 
 const  MenuWrapper  = styled(Box)(() => ({  
     display:'flex',
     justifyContent: 'flex-end',  
     alignItems: 'center', 
     marginBottom:'1rem',
-    flex:0.7,
-    border:'1px solid red', 
-    padding: '0 1rem'
+    flex:0.7,  
+    padding: '0 1rem',
+    maxHeight:'3rem', 
+}));
+
+const LogoWrapper =  styled(LogoComponent)(() => ({ 
+    justifyContent: 'flex-start',   
 }));
 
 const AuthenticatedTopNavigationComponent = () => {  
@@ -50,6 +55,7 @@ const AuthenticatedTopNavigationComponent = () => {
     
     return  (<React.Fragment>  
                 <MenuWrapper> 
+                    <LogoWrapper />
                     <Button
                         id="basic-button-churster"
                         aria-controls={open ? 'basic-menu' : undefined}

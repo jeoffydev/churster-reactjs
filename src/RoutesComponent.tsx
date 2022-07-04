@@ -10,9 +10,9 @@ import NavigationComponent from './components/NavigationComponent/NavigationComp
 import FooterComponent from './components/GeneralComponent/FooterComponent'
 import {styled} from "@mui/system"; 
 import AuthenticatedTopNavigationComponent from './components/NavigationComponent/AuthenticatedTopNavigationComponent';
-import axios from "axios";
-import { useGetUserDetails } from './components/CustomHookComponent/useGetUserDetails';
+import axios from "axios"; 
 import { IUserOptions } from './Types/chursterType'
+import AuthUserDetails from './components/CustomHookComponent/AuthUserDetails';
  
 
 const  PageWrapper  = styled(`div`)(() => ({ 
@@ -39,8 +39,7 @@ const RoutesComponent = () => {
          isAuthenticated: isAuthenticated(),
          userID: authUser()?.uid,  
          isEnabled: isEnabled
-    }
-    useGetUserDetails(optionsUser);  
+    } 
     /* Eery refresh get the user details */
     
     //Get the jwt in global ways
@@ -54,6 +53,7 @@ const RoutesComponent = () => {
     return ( 
         <BrowserRouter>
             <PageWrapper>
+                <AuthUserDetails {...optionsUser} />
                 {!isAuthenticated() ? <NavigationComponent /> : <AuthenticatedTopNavigationComponent />}
                 <Routes>
                     <Route
