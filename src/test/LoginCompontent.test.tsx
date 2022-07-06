@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor} from '@testing-library/react';
+import { render, fireEvent, screen, waitFor} from '@testing-library/react';
 import LoginComponent from "../components/LoginComponent";
 import { AuthProvider } from 'react-auth-kit';
 import { BrowserRouter  } from 'react-router-dom'
@@ -47,5 +47,8 @@ describe("Login Component", () => {
             name: /login/i
         });
         expect(signInBtn).toBeInTheDocument();
+        fireEvent.click(signInBtn);
+       // screen.getByText(/go to create event/i)
+
     });
 });
