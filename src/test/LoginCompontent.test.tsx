@@ -1,10 +1,12 @@
-import { render, screen, waitFor} from '@testing-library/react';
+import { render, fireEvent, screen, waitFor} from '@testing-library/react';
 import LoginComponent from "../components/LoginComponent";
 import { AuthProvider } from 'react-auth-kit';
 import { BrowserRouter  } from 'react-router-dom'
 import HomeComponent from "../components/HomeComponent"; 
 import CreateEventComponent from "../components/CreateEventComponent";
 import { QueryClientProvider, QueryClient } from 'react-query';
+
+//Install chrome extension Testing Playground
 
 
 
@@ -40,8 +42,13 @@ describe("Login Component", () => {
 
     it("renders Login Component without an issue",   async() => {
         renderContainer();
-        const signInBtn = screen.getByRole("login-btn");
+
+        const signInBtn = screen.getByRole('button', {
+            name: /login/i
+        });
         expect(signInBtn).toBeInTheDocument();
+        fireEvent.click(signInBtn);
+       // screen.getByText(/go to create event/i)
 
     });
 });
