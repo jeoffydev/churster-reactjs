@@ -32,4 +32,8 @@ export enum chursterString {
     services = "Services",
     members = "Members",
 
+    //Dashboard
+    departments = "Departments",
+    
+
 }
