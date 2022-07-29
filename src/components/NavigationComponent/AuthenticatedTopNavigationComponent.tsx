@@ -14,6 +14,7 @@ import { logoutQuery } from '../../Queries/LoginQueries';
 import { useAuthUser, useSignOut    } from 'react-auth-kit'
 import { chursterLink } from '../../Helpers/routeHelper';
 import LogoComponent from '../GeneralComponent/LogoComponent';
+import AddIcon from '@mui/icons-material/Add';
 
 const  MenuWrapper  = styled(Box)(() => ({  
     display:'flex',
@@ -51,11 +52,19 @@ const AuthenticatedTopNavigationComponent = () => {
         navigate(chursterLink.home)  
         logoutMutation.mutate();  
     }
- 
+    
+   
     
     return  (<React.Fragment>  
                 <MenuWrapper> 
                     <LogoWrapper />
+                    <Button 
+                        variant="contained" 
+                        endIcon={<AddIcon />}
+                        onClick={()=>navigate('/create-event')}
+                    >
+                        {chursterString.create}
+                    </Button>
                     <Button
                         id="basic-button-churster"
                         aria-controls={open ? 'basic-menu' : undefined}

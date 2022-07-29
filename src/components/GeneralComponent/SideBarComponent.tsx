@@ -1,5 +1,4 @@
-import React from 'react'   
-import styled from "styled-components";   
+import React from 'react'    
 import { useAtom } from 'jotai';
 import {   userOrganisationAtom } from './../../Helpers/AuthAtomObject'; 
 import Chip from '@mui/material/Chip';
@@ -36,6 +35,14 @@ const SideBarComponent = () => {
  
 
                     <List sx={style} component="nav" aria-label="mailbox folders">
+                        <ListItem button onClick={()=>navigate(chursterLink.members)}>
+                            <ListItemAvatar>
+                                <Avatar>
+                                    <ServiceIcon />
+                                </Avatar>
+                            </ListItemAvatar>
+                            <ListItemText primary={chursterString.members}  />
+                        </ListItem>
                         <ListItem button onClick={()=>navigate(chursterLink.services)}>
                             <ListItemAvatar>
                                 <Avatar>

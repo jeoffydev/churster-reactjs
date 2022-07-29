@@ -5,5 +5,7 @@ export enum chursterLink {
     contact = "/contact",
     contractor = "/contractor",
     dashboard = "/dashboard",
-    services = "/services"  
+    services = "/services", 
+    members = "/members",
+    createEvent = "/create-event"  
 }

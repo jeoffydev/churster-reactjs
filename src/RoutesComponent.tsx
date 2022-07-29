@@ -13,6 +13,8 @@ import AuthenticatedTopNavigationComponent from './components/NavigationComponen
 import axios from "axios"; 
 import { IUserOptions } from './Types/chursterType'
 import AuthUserDetails from './components/CustomHookComponent/AuthUserDetails';
+import MembersComponent from './components/MembersComponent'
+
  
 
 const  PageWrapper  = styled(`div`)(() => ({ 
@@ -45,10 +47,11 @@ const RoutesComponent = () => {
     //Get the jwt in global ways
     useEffect(()=>{
         if(authHeader() && isAuthenticated()){ 
+            console.count("COUNT in ROUTESCOMPONENT 1")
             setIsEnabled(true);
             axios.defaults.headers.common['Authorization'] = authHeader();
         }
-    },[axios, authHeader, isAuthenticated()])
+    },[authHeader, isAuthenticated])
 
     return ( 
         <BrowserRouter>
@@ -69,7 +72,13 @@ const RoutesComponent = () => {
                             <SecureComponent/>
                         </RequireAuth>
                     }/>}
-                    {isAuthenticated() && <Route path={'/create-event'} element={
+                    
+                    {isAuthenticated() && <Route path={chursterLink.members} element={
+                        <RequireAuth loginPath={chursterLink.home}>
+                            <MembersComponent />
+                        </RequireAuth>
+                    }/>}
+                    {isAuthenticated() && <Route path={chursterLink.createEvent} element={
                         <RequireAuth loginPath={chursterLink.home}>
                             <CreateEventComponent/>
                         </RequireAuth>

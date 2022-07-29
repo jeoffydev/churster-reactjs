@@ -31,6 +31,7 @@ export const AuthUserDetails = (options: IUserOptions) => {
       
       useEffect(()=>{
             if(data && isSuccess && isAuthenticated){   
+                console.count("COUNT in AUTHUSERDETAILS 1")
                 //Save to atoms
                 setUserFetched(data.data.userDetails);
                 setUserDetails(data.data.userDetails);
@@ -38,10 +39,21 @@ export const AuthUserDetails = (options: IUserOptions) => {
             } 
 
             if(isError && status === 'error'){
+                console.count("COUNT in AUTHUSERDETAILS 2")
                 signOut()
                 navigate(chursterLink.home)  
             }
-      },[ data, isSuccess, isError, status,   isAuthenticated]) 
+      },[ 
+          data, 
+          isSuccess, 
+          isError, 
+          status,   
+          isAuthenticated, 
+          navigate, 
+          signOut, 
+          setOrgDetails, 
+          setUserDetails
+        ]) 
      
     return <></>;
 };

@@ -34,6 +34,7 @@ export enum chursterString {
 
     //Dashboard
     departments = "Departments",
+    create = "Create"
     
 
 }

@@ -47,8 +47,6 @@ describe("Login Component", () => {
             name: /login/i
         });
         expect(signInBtn).toBeInTheDocument();
-        fireEvent.click(signInBtn);
-       // screen.getByText(/go to create event/i)
 
     });
 });
