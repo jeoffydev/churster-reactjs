@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# DEMO
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a starting project with Authentication [DEMO](https://share.vidyard.com/watch/tihtpczbuUcFDLBrKP8cTG?).
 
 ## Available Scripts
 
