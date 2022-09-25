@@ -34,7 +34,10 @@ export enum chursterString {
 
     //Dashboard
     departments = "Departments",
-    create = "Create"
-    
+    create = "Create",
 
+    //Create Event
+    latestEventCard = "Latest Event",
+    addNewEvent = "Add new event",
+    noEvent = "No Event"
 }
