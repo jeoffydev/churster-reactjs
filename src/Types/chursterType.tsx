@@ -59,3 +59,9 @@ export interface IUserOptions {
   userID: string; 
   isEnabled: boolean;
 }
+
+export interface IEventTypes {
+  id: number;
+  eventName: string;
+  eventDate: string;
+} 
