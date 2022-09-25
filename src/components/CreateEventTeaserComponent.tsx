@@ -1,4 +1,27 @@
- 
+ /*
+
+
+Dear sir/madam,
+
+I am writing to express my interest for the position of Software Developer in CodeLingo. 
+
+My name is Jeoffy Hipolito, I have 12 years’ experience in Web Development and more than a year in Software Development. 
+
+I am a permanent resident, currently living in Dunedin and I have the right to work in New Zealand. 
+
+I was browsing your website codeLingo.io and find the product very interesting and I want to be a part of the team to do all the duties and responsibilities required. I am currently working in SilverStripe as a Developer in bespoke team. However, I realised that I could do more in Software than building Websites, as I find Software as a Service (SaaS) products more exciting to get involve, fun and challenging to code.
+
+In my previous job, I worked as a Web/Front-End Developer and mainly used ReactJS, Redux, TypeScript, NodeJS, etc. I also helped the UI/UX designer in planning as well as the organization's innovation activities and visiting the farmers for a product interview. I also have headless CMS experience using NextJs, KeystoneJS, GraphQL and MongoDB which gives me more confident that I am a great fit for this position. 
+
+I sincerely hope that you will consider my application and discuss it further. 
+
+Please see my attached resume for your reference. Thank you for your time and I look forward to speaking with you.
+
+Sincerely,
+Jeoffy Hipolito
+
+
+ */
 
 import AdminLayoutComponent from './GeneralComponent/AdminLayoutComponent';
 import Box from '@mui/material/Box';
