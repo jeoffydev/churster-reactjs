@@ -2,7 +2,7 @@ import {  render, screen } from '@testing-library/react';
 import { AuthProvider } from 'react-auth-kit';
 import { BrowserRouter  } from 'react-router-dom'
 import HomeComponent from "../components/HomeComponent"; 
-import CreateEventComponent from "../components/CreateEventComponent";
+import CreateEventTeaserComponent from '../components/CreateEventTeaserComponent';
 import { QueryClientProvider, QueryClient } from 'react-query';
 
 
@@ -28,7 +28,7 @@ describe("Home Component", () => {
                 >
                     <BrowserRouter>
                         <HomeComponent/> 
-                        <CreateEventComponent/>
+                        <CreateEventTeaserComponent />
                     </BrowserRouter>
                 </AuthProvider>
             </QueryClientProvider>
