@@ -13,7 +13,7 @@ export enum chursterString {
     
     //Long strings
     tagline = "Login. Add event. Send to Members",
-    footer = "Roster Management System",
+    footer = "Roster Event Management System",
 
 
     //Error messages
@@ -31,6 +31,10 @@ export enum chursterString {
     //Sidebar
     services = "Services",
     members = "Members",
+    instruments = "Instruments",
+    songs= "songs",
+    noMembers = "0 Member",
+    listOrgTxt = "List for this organization",
 
     //Dashboard
     departments = "Departments",

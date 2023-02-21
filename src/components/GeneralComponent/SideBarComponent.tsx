@@ -14,8 +14,9 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import { chursterLink } from '../../Helpers/routeHelper';
 import { chursterString } from '../../Helpers/stringHelper';
-
- 
+import AudiotrackIcon from '@mui/icons-material/Audiotrack';
+import PianoIcon from '@mui/icons-material/Piano';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 
 const style = {
     width: '100%',
@@ -38,7 +39,7 @@ const SideBarComponent = () => {
                         <ListItem button onClick={()=>navigate(chursterLink.members)}>
                             <ListItemAvatar>
                                 <Avatar>
-                                    <ServiceIcon />
+                                    <PeopleAltIcon />
                                 </Avatar>
                             </ListItemAvatar>
                             <ListItemText primary={chursterString.members}  />
@@ -50,6 +51,24 @@ const SideBarComponent = () => {
                                 </Avatar>
                             </ListItemAvatar>
                             <ListItemText primary={chursterString.services}  />
+                        </ListItem>
+                        <Divider />
+                        <ListItem button onClick={()=>navigate(chursterLink.instruments)}>
+                            <ListItemAvatar>
+                                <Avatar>
+                                    <PianoIcon />
+                                </Avatar>
+                            </ListItemAvatar>
+                            <ListItemText primary={chursterString.instruments}  />
+                        </ListItem>
+                        <Divider />
+                        <ListItem button onClick={()=>navigate(chursterLink.songs)}>
+                            <ListItemAvatar>
+                                <Avatar>
+                                    <AudiotrackIcon />
+                                </Avatar>
+                            </ListItemAvatar>
+                            <ListItemText primary={chursterString.songs}  />
                         </ListItem>
                         <Divider />
                         <ListItem button divider>
