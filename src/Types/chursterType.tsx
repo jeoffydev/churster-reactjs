@@ -3,6 +3,13 @@ export  interface ILoginForm {
   password: string;
 }   
 
+export  interface ICreateForm {
+  email: string;
+  password: string;
+  name: string;
+  organization_id: number;
+} 
+
 export interface IUserOrganisation{
   id:  number;
   user_id:  number;
