@@ -5,6 +5,6 @@ test('renders App and footer content', () => {
   render(
         <App />
   );
-  const linkElement = screen.getByText(/Roster Management System/i);
+  const linkElement = screen.getByText(/Roster Event Management System/i);
   expect(linkElement).toBeInTheDocument();
 });
