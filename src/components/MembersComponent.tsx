@@ -8,15 +8,18 @@ import { styled } from '@mui/material/styles';
 import { ExtraPalette } from '../Helpers/constant';
 import { chursterString } from '../Helpers/stringHelper';
 import { useQuery } from 'react-query'; 
-import { contractorGetAllMembersQuery } from '../Queries/LoginQueries';
+import { contractorGetAllMembersQuery, createUserQuery } from '../Queries/LoginQueries';
 import {useIsAuthenticated, useAuthHeader} from 'react-auth-kit'
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import PersonIcon from '@mui/icons-material/Person';
-import { ICreateForm, IUserDetails } from '../Types/chursterType';
+import {  ICreateForm, IUserDetails } from '../Types/chursterType';
+import { useAtom } from 'jotai';
+import { userDetailsAtom } from './../Helpers/AuthAtomObject';
+import { useMutation } from 'react-query';
 
 const Item = styled(Paper)(() => ({
     backgroundColor: ExtraPalette.c_fff,
@@ -28,10 +31,33 @@ const Item = styled(Paper)(() => ({
     flexGrow: 1
  }) );
 
+ const FormWrapper = styled('div')(()=>({ 
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    padding: '0.5rem',
+    margin:'0.3rem'
+ }));
+
+ const FormInput = styled('div')(()=>({
+    margin:'0.3rem',
+    '& input': { 
+        display: 'flex',
+        width: '80%',
+        margin:'0.3rem',
+        height: '2rem'
+    }
+ }));
+
 const MembersComponent = () => { 
     const isAuthenticated = useIsAuthenticated() 
     const authHeader = useAuthHeader(); 
+    const { register, handleSubmit,  formState: { errors }, reset } = useForm<ICreateForm>();
     const [queryMembers, setQueryMembers]= useState(false);
+     //User Atom object
+    const [userDetails, ] = useAtom(userDetailsAtom); 
+    //Create user form
+    const createMutation = useMutation(createUserQuery);
 
     const {  data,  isSuccess, isError, status   } = useQuery( "contractorGetAllMembers", () =>contractorGetAllMembersQuery(),
     {
@@ -56,11 +82,19 @@ const MembersComponent = () => {
     console.log("is success ", isSuccess)
     console.log("is Errro ", isError)
     console.log("status ", status)
-
+    console.log("userDetails ", userDetails) 
     // Submit form
-    const { register, handleSubmit,  formState: { errors } } = useForm();
-    const onSubmit = (data: {}) => console.log(data);
     
+    const onSubmit : SubmitHandler<ICreateForm> = data => {
+        console.log("FIRST SUBMIT ", data)
+        createMutation.mutate(data); 
+        reset({ ...data })
+        
+    } 
+
+     
+    const isAdmin: boolean =  userDetails?.user_access[0]?.access_level === 1;
+     
     return (  
         <AdminLayoutComponent> 
             <BoxWrapper>
@@ -98,17 +132,38 @@ const MembersComponent = () => {
                             {chursterString.create} {chursterString.members} 
                         </Item>
                         <>
-                            <form onSubmit={handleSubmit(onSubmit)}>
-                                <input type={'number'} defaultValue="Organization ID" {...register("organisation_id", { required: true })} />
-                                {errors.organisation_id && <span>Organisation ID is required</span>}
-                                <input type={'text'} defaultValue="Full Name" {...register("name", { required: true })} />
-                                {errors.name && <span>Full Name is required</span>}
-                                <input type={'email'} defaultValue="Email Address" {...register("email", { required: true })} />
-                                {errors.email && <span>Email Address is required</span>}
-                                <input type={'password'} {...register("password", { required: true })} />
-                                {errors.password && <span>Password is required</span>}
-                                <input type="submit" />
-                            </form>
+                            <FormWrapper>
+                                <form onSubmit={handleSubmit(onSubmit)}>
+                                    {
+                                        isAdmin && (
+                                            <FormInput>
+                                                <label>Organization</label>
+                                                <input type={'number'}    {...register("organisation_id", { required: true })} />
+                                                {errors.organisation_id && <span>Organisation ID is required</span>}
+                                            </FormInput>
+                                        ) 
+                                    }
+                                    
+                                    <FormInput>
+                                        <label>Full Name</label>
+                                        <input type={'text'} defaultValue=""  {...register("name", { required: true })} />
+                                        {errors.name && <span>Full Name is required</span>}
+                                    </FormInput>
+                                    <FormInput>
+                                        <label>Email Address</label>
+                                        <input type={'email'}  defaultValue=""  {...register("email", { required: true })} />
+                                        {errors.email && <span>Email Address is required</span>}
+                                    </FormInput>
+                                    <FormInput>
+                                        <label>Password</label>
+                                        <input type={'password'}  defaultValue="" {...register("password", { required: true })} />
+                                        {errors.password && <span>Password is required</span>}
+                                    </FormInput>
+                                    <FormInput>
+                                        <input type="submit" />
+                                    </FormInput>
+                                </form>
+                            </FormWrapper>
                         </>
                         
                     </Grid>

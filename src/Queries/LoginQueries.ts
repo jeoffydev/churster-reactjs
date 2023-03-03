@@ -1,6 +1,6 @@
  
 import axios from "axios";
-import { ILoginForm } from './../Types/chursterType'; 
+import { ICreateForm, ILoginForm } from './../Types/chursterType'; 
 import { isLocalhost } from './Setup';
  
  /**
@@ -27,6 +27,17 @@ export async function userDetailsQuery(id: number) {
 
 export async function contractorGetAllMembersQuery() { 
     const response = await axios.get(`${url}/api/contractors/users`)  
+    return  response;
+}
+
+export async function createUserQuery(data: ICreateForm) {
+    const {email, password, name, organisation_id } = data;
+    const response = await axios.post(`${url}/api/contractors/user/create`, { 
+        name,
+        email, 
+        password,  
+        organisation_id
+    })  
     return  response;
 }
 

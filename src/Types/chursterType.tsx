@@ -7,7 +7,7 @@ export  interface ICreateForm {
   email: string;
   password: string;
   name: string;
-  organization_id: number;
+  organisation_id: number | undefined;
 } 
 
 export interface IUserOrganisation{
@@ -34,7 +34,7 @@ export interface IUserDetails{
   created_at: string;
   updated_at: string;
   user_organisation:  IUserOrganisation;
-  user_access:IUserAccess;
+  user_access:IUserAccess[];
 }
 export interface IOrganisation{
   id:  number;
