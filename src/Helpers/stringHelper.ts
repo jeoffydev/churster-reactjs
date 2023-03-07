@@ -43,5 +43,11 @@ export enum chursterString {
     //Create Event
     latestEventCard = "Latest Event",
     addNewEvent = "Add new event",
-    noEvent = "No Event"
+    noEvent = "No Event",
+
+    // Create buttons
+    createBtn = "Create",
+    editBtn = "Edit",
+    updateBtn = "Update",
+    deleteBtn = "Delete",
 }
