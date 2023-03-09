@@ -68,8 +68,8 @@ const CreateEventTeaserComponent = () => {
             {
                 checkBoolEventTeaser ? eventTeaser.map((event, index) => {
                     return (
-                        <>
-                            <BoxedDivMap key={index}>
+                        <div key={index}>
+                            <BoxedDivMap>
                                 <BoxedCardContent key={index}>
                                     <Typography gutterBottom>
                                         {event.eventDate}
@@ -82,7 +82,7 @@ const CreateEventTeaserComponent = () => {
                                     <Button size="small">Read more <TrendingFlatIcon /></Button>
                                 </CardActions>
                             </BoxedDivMap>
-                        </>
+                        </div>
                     )
                 }) : (
                     <p>{chursterString.noEvent}</p>  
