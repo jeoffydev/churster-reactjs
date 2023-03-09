@@ -8,6 +8,7 @@ export  interface ICreateForm {
   password: string;
   name: string;
   organisation_id: number | undefined;
+  access: number;
 } 
 
 export interface IUserOrganisation{

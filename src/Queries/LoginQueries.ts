@@ -31,12 +31,13 @@ export async function contractorGetAllMembersQuery() {
 }
 
 export async function createUserQuery(data: ICreateForm) {
-    const {email, password, name, organisation_id } = data;
+    const {email, password, name, organisation_id, access } = data;
     const response = await axios.post(`${url}/api/contractors/user/create`, { 
         name,
         email, 
         password,  
-        organisation_id
+        organisation_id,
+        access
     })  
     return  response;
 }

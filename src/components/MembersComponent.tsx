@@ -16,10 +16,11 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import PersonIcon from '@mui/icons-material/Person';
-import {  ICreateForm, IUserDetails } from '../Types/chursterType';
+import {  ICreateForm, IOrganisation, IUserDetails } from '../Types/chursterType';
 import { useAtom } from 'jotai';
-import { userDetailsAtom } from './../Helpers/AuthAtomObject';
+import { userDetailsAtom, userOrganisationAtom } from './../Helpers/AuthAtomObject';
 import { useMutation } from 'react-query';
+import { getAllOrganisationsQuery } from '../Queries/OrganisationQueries';
 
 const Item = styled(Paper)(() => ({
     backgroundColor: ExtraPalette.c_fff,
@@ -41,7 +42,7 @@ const Item = styled(Paper)(() => ({
 
  const FormInput = styled('div')(()=>({
     margin:'0.3rem',
-    '& input': { 
+    '& input, select': { 
         display: 'flex',
         width: '80%',
         margin:'0.3rem',
@@ -56,6 +57,7 @@ const MembersComponent = () => {
     const [queryMembers, setQueryMembers]= useState(false);
      //User Atom object
     const [userDetails, ] = useAtom(userDetailsAtom); 
+    const [orgDetails, ] = useAtom(userOrganisationAtom); 
     //Create user form
     const createMutation = useMutation(createUserQuery);
 
@@ -65,6 +67,8 @@ const MembersComponent = () => {
         refetchOnWindowFocus: true,
     });
 
+    const {  data: allOrganisations   } = useQuery( "getAllOrganisations", () =>getAllOrganisationsQuery());
+    console.log("ORGS ", allOrganisations)
     useEffect(()=>{
         if(isAuthenticated() && authHeader()){
             console.count("COUNT in MEMBERSCOMPONENT 1")
@@ -73,20 +77,23 @@ const MembersComponent = () => {
 
     },[isAuthenticated, authHeader])
 
-    console.log("isAuthenticated ", isAuthenticated())
-    console.log("authHeader ", authHeader())
+    // console.log("isAuthenticated ", isAuthenticated())
+    // console.log("authHeader ", authHeader())
 
-    console.log("QUERY ENABLED ", queryMembers)
+    // console.log("QUERY ENABLED ", queryMembers)
 
-    console.log("DATA ", data?.data);
-    console.log("is success ", isSuccess)
-    console.log("is Errro ", isError)
-    console.log("status ", status)
-    console.log("userDetails ", userDetails) 
+    // console.log("DATA ", data?.data);
+    // console.log("is success ", isSuccess)
+    // console.log("is Errro ", isError)
+    // console.log("status ", status)
+    // console.log("userDetails ", userDetails) 
     // Submit form
     
-    const onSubmit : SubmitHandler<ICreateForm> = data => {
-        console.log("FIRST SUBMIT ", data)
+    const onSubmit = (data: ICreateForm) => {
+        data.access = isAdmin ? 1 : 2;
+        if(!isAdmin) {
+            data.organisation_id = orgDetails?.id;
+        }
         createMutation.mutate(data); 
         reset({ ...data })
         
@@ -113,14 +120,14 @@ const MembersComponent = () => {
                             data?.data ? data.data.map((user: IUserDetails) => {
 
                                 return(
-                                    <>
+                                    <div key={user.id}>
                                             <ListItemButton>
                                                 <ListItemIcon>
                                                     <PersonIcon />
                                                 </ListItemIcon>
                                                 <ListItemText primary={user.name} />
                                             </ListItemButton>
-                                    </>
+                                    </div>
                                 )
                             }) : `${chursterString.noMembers}`
                         }
@@ -138,7 +145,14 @@ const MembersComponent = () => {
                                         isAdmin && (
                                             <FormInput>
                                                 <label>Organization</label>
-                                                <input type={'number'}    {...register("organisation_id", { required: true })} />
+                                                <select {...register("organisation_id", { required: true })}>
+                                                    <option value="">-- Select --</option>
+                                                    {
+                                                        allOrganisations?.data?.organisationsList
+                                                        && allOrganisations.data.organisationsList
+                                                        .map((org: IOrganisation)=>org.active === 1 && <option key={org.id} value={org.id}>{org.org_name}</option>)
+                                                    }
+                                                </select>
                                                 {errors.organisation_id && <span>Organisation ID is required</span>}
                                             </FormInput>
                                         ) 
