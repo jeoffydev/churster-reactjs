@@ -50,4 +50,8 @@ export enum chursterString {
     editBtn = "Edit",
     updateBtn = "Update",
     deleteBtn = "Delete",
+
+    //Members dashboard
+    upcomingEvent = "Upcoming Event",
+    myEvent = "My Event",
 }

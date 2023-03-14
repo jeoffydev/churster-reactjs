@@ -9,5 +9,6 @@ export enum chursterLink {
     members = "/members",
     createEvent = "/create-event",  
     instruments = "/instruments",
-    songs = "/songs"
+    songs = "/songs",
+    memberDashboard = "/member-dashboard",
 }

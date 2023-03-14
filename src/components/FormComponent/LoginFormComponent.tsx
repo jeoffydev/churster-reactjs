@@ -8,7 +8,7 @@ import { PasswordIcon } from './../../Icons/PasswordIcon';
 import { SubmitIcon } from './../../Icons/SubmitIcon';
 import { chursterString } from '../../Helpers/stringHelper';
 import { useForm,  SubmitHandler } from "react-hook-form";
-import { ILoginForm } from './../../Types/chursterType';
+import { ILoginForm, UserAccess } from './../../Types/chursterType';
 import ChursterInputBoxComponent from './ChursterInputBoxComponent';
 import {  loginQuery } from '../../Queries/LoginQueries';
 import {   useMutation } from "react-query"; 
@@ -104,8 +104,15 @@ const LoginFormComponent = () => {
                 //Save to atom or Redux
                 setUserDetails(loginMutation.data.data.userDetails);
                 setOrgDetails(loginMutation.data.data.userOrganisation)
-                // If Login Successfull, then Redirect the user to secure route
-                navigate(chursterLink.dashboard)
+                 
+                // If members redirect to member-dashboard
+                if(loginMutation.data.data.userDetails?.user_access[0].access_level === UserAccess.member) {
+                    navigate(chursterLink.memberDashboard);
+                } else {
+                    // If Login Successfull, then Redirect the user to secure route
+                    navigate(chursterLink.dashboard)
+                } 
+                
             } else {
                 // Else, there must be some error. So, throw an error
                 setOpen(true);

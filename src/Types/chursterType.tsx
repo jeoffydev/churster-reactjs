@@ -73,3 +73,9 @@ export interface IEventTypes {
   eventName: string;
   eventDate: string;
 } 
+
+export const UserAccess = {
+  admin: 1,
+  constructor: 3,
+  member: 2
+}

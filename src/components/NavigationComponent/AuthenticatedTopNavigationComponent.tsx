@@ -15,6 +15,9 @@ import { useAuthUser, useSignOut    } from 'react-auth-kit'
 import { chursterLink } from '../../Helpers/routeHelper';
 import LogoComponent from '../GeneralComponent/LogoComponent';
 import AddIcon from '@mui/icons-material/Add';
+import { useAtom } from 'jotai';
+import { userDetailsAtom } from './../../Helpers/AuthAtomObject';
+import { UserAccess } from './../../Types/chursterType';
 
 const  MenuWrapper  = styled(Box)(() => ({  
     display:'flex',
@@ -38,6 +41,7 @@ const AuthenticatedTopNavigationComponent = () => {
     const open = Boolean(anchorEl);
     const navigate = useNavigate();
     const logoutMutation = useMutation(logoutQuery); 
+    const [userDetails, ] = useAtom(userDetailsAtom); 
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
       setAnchorEl(event.currentTarget);
@@ -53,18 +57,23 @@ const AuthenticatedTopNavigationComponent = () => {
         logoutMutation.mutate();  
     }
     
-   
+    const isMember = userDetails?.user_access[0].access_level === UserAccess.member;
     
     return  (<React.Fragment>  
                 <MenuWrapper> 
                     <LogoWrapper />
-                    <Button 
-                        variant="contained" 
-                        endIcon={<AddIcon />}
-                        onClick={()=>navigate('/create-event')}
-                    >
-                        {chursterString.create}
-                    </Button>
+                    {
+                        !isMember && (
+                            <Button 
+                                variant="contained" 
+                                endIcon={<AddIcon />}
+                                onClick={()=>navigate('/create-event')}
+                            >
+                                {chursterString.create}
+                            </Button>
+                        )
+                    }
+                   
                     <Button
                         id="basic-button-churster"
                         aria-controls={open ? 'basic-menu' : undefined}
