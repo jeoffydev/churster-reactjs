@@ -65,10 +65,11 @@ const MembersComponent = () => {
     {
         enabled: queryMembers,
         refetchOnWindowFocus: true,
+        refetchInterval: 2000,
     });
 
     const {  data: allOrganisations   } = useQuery( "getAllOrganisations", () =>getAllOrganisationsQuery());
-    console.log("ORGS ", allOrganisations)
+ 
     useEffect(()=>{
         if(isAuthenticated() && authHeader()){
             console.count("COUNT in MEMBERSCOMPONENT 1")
