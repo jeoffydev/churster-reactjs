@@ -35,7 +35,6 @@ export const AuthUserDetails = (options: IUserOptions) => {
       });
       
       useEffect(()=>{
-        console.log("IN WITHOUT1 ", isAuthenticated )
             if(data && isSuccess && isAuthenticated){   
                 console.count("COUNT in AUTHUSERDETAILS 1")
                 //Save to atoms 
