@@ -1,6 +1,6 @@
 import React from 'react'    
 import { useAtom } from 'jotai';
-import {   userOrganisationAtom } from './../../Helpers/AuthAtomObject'; 
+import { userOrganisationAtom, userDetailsAtom } from './../../Helpers/AuthAtomObject'; 
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import ChurchIcon from '@mui/icons-material/Church'; 
@@ -26,16 +26,35 @@ const style = {
 
 const SideBarComponent = () => {   
     const [orgDetails, ] = useAtom(userOrganisationAtom); 
+    const [userDetails, ] = useAtom(userDetailsAtom); 
+    const isAdmin: boolean =  userDetails?.user_access[0]?.access_level === 1;
     const labelName = orgDetails?.org_name ? orgDetails.org_name : "..."
-    const navigate = useNavigate()  
+    const navigate = useNavigate()
+    console.log("userDetails ", userDetails)  
     return  (<React.Fragment>  
                 <> 
-                    <Stack direction="column" spacing={1}>
-                        <Chip icon={<ChurchIcon />} label={labelName} /> 
-                    </Stack>
- 
+                    {
+                           !isAdmin && (
+                            <Stack direction="column" spacing={1}>
+                                <Chip icon={<ChurchIcon />} label={labelName} /> 
+                            </Stack>
+                           )
+                    } 
 
                     <List sx={style} component="nav" aria-label="mailbox folders">
+                        {
+                            isAdmin && (
+                                <ListItem button onClick={()=>navigate(chursterLink.organisations)}>
+                                    <ListItemAvatar>
+                                        <Avatar>
+                                            <ChurchIcon />
+                                        </Avatar>
+                                    </ListItemAvatar>
+                                    <ListItemText primary={chursterString.organisations}  />
+                                </ListItem>
+                            )
+                        }
+                        
                         <ListItem button onClick={()=>navigate(chursterLink.members)}>
                             <ListItemAvatar>
                                 <Avatar>

@@ -5,6 +5,7 @@ export enum chursterString {
     username = "Username",
     password = "Password", 
     contractor ="Contractor",
+    listContractors ="List of Contractors",
     member ="Member",
     logoTitle = "Churster Logo", 
     home = "Home",
@@ -35,6 +36,8 @@ export enum chursterString {
     songs= "songs",
     noMembers = "0 Member",
     listOrgTxt = "List for this organization",
+    organisations = "Organisations",
+    allOrganisations = "All Organisations",
 
     //Dashboard
     departments = "Departments",
@@ -54,4 +57,7 @@ export enum chursterString {
     //Members dashboard
     upcomingEvent = "Upcoming Event",
     myEvent = "My Event",
+
+    //loading
+    loading = "...Loading"
 }

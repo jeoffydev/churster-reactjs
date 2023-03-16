@@ -43,10 +43,7 @@ const Item = styled(Paper)(() => ({
  const FormInput = styled('div')(()=>({
     margin:'0.3rem',
     '& input, select': { 
-        display: 'flex',
-        width: '80%',
-        margin:'0.3rem',
-        height: '2rem'
+        display: 'flex', 
     }
  }));
 
@@ -61,13 +58,14 @@ const MembersComponent = () => {
     //Create user form
     const createMutation = useMutation(createUserQuery);
 
-    const {  data,  isSuccess, isError, status   } = useQuery( "contractorGetAllMembers", () =>contractorGetAllMembersQuery(),
+    const {  data, status } = useQuery( "contractorGetAllMembers", () =>contractorGetAllMembersQuery(),
     {
         enabled: queryMembers,
         refetchOnWindowFocus: true,
         refetchInterval: 2000,
     });
 
+    //Get all the organisations for this user
     const {  data: allOrganisations   } = useQuery( "getAllOrganisations", () =>getAllOrganisationsQuery());
  
     useEffect(()=>{
@@ -100,7 +98,7 @@ const MembersComponent = () => {
         
     } 
 
-     
+    //Check if admin      
     const isAdmin: boolean =  userDetails?.user_access[0]?.access_level === 1;
      
     return (  
@@ -109,7 +107,10 @@ const MembersComponent = () => {
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
                         <Item>
-                                {chursterString.members} {chursterString.listOrgTxt}
+                            {
+                                isAdmin ?  chursterString.listContractors : <>{chursterString.members} {chursterString.listOrgTxt}</>
+                            }
+                            
                         </Item>
                         <Item>
                         <List
@@ -117,21 +118,29 @@ const MembersComponent = () => {
                             component="nav"
                             aria-labelledby="nested-list-subheader"
                         >
-                        {
-                            data?.data ? data.data.map((user: IUserDetails) => {
-
-                                return(
-                                    <div key={user.id}>
-                                            <ListItemButton>
-                                                <ListItemIcon>
-                                                    <PersonIcon />
-                                                </ListItemIcon>
-                                                <ListItemText primary={user.name} />
-                                            </ListItemButton>
-                                    </div>
+                            {
+                                status === 'loading' && (
+                                    <>
+                                        {chursterString.loading}
+                                    </>
                                 )
-                            }) : `${chursterString.noMembers}`
-                        }
+                            }
+                            {
+                                status === 'success'  && data?.data && data.data.map((user: IUserDetails) => {
+
+                                    return(
+                                        <div key={user.id}>
+                                                <ListItemButton>
+                                                    <ListItemIcon>
+                                                        <PersonIcon />
+                                                    </ListItemIcon>
+                                                    <ListItemText primary={user.name} />
+                                                </ListItemButton>
+                                        </div>
+                                    )
+                                }) 
+                            }
+                            { status === 'success'  && data?.data && data.data.length === 0 && `${chursterString.noMembers}` }
                         </List>
                         </Item>
                     </Grid>
@@ -146,7 +155,7 @@ const MembersComponent = () => {
                                         isAdmin && (
                                             <FormInput>
                                                 <label>Organization</label>
-                                                <select {...register("organisation_id", { required: true })}>
+                                                <select className='form-control' {...register("organisation_id", { required: true })}>
                                                     <option value="">-- Select --</option>
                                                     {
                                                         allOrganisations?.data?.organisationsList
@@ -154,28 +163,28 @@ const MembersComponent = () => {
                                                         .map((org: IOrganisation)=>org.active === 1 && <option key={org.id} value={org.id}>{org.org_name}</option>)
                                                     }
                                                 </select>
-                                                {errors.organisation_id && <span>Organisation ID is required</span>}
+                                                {errors.organisation_id && <span className='error'>Organisation ID is required</span>}
                                             </FormInput>
                                         ) 
                                     }
                                     
                                     <FormInput>
                                         <label>Full Name</label>
-                                        <input type={'text'} defaultValue=""  {...register("name", { required: true })} />
-                                        {errors.name && <span>Full Name is required</span>}
+                                        <input type={'text'} defaultValue="" className='form-control'  {...register("name", { required: true })} />
+                                        {errors.name && <span className='error'>Full Name is required</span>}
                                     </FormInput>
                                     <FormInput>
                                         <label>Email Address</label>
-                                        <input type={'email'}  defaultValue=""  {...register("email", { required: true })} />
-                                        {errors.email && <span>Email Address is required</span>}
+                                        <input type={'email'}  defaultValue="" className='form-control'  {...register("email", { required: true })} />
+                                        {errors.email && <span className='error'>Email Address is required</span>}
                                     </FormInput>
                                     <FormInput>
                                         <label>Password</label>
-                                        <input type={'password'}  defaultValue="" {...register("password", { required: true })} />
-                                        {errors.password && <span>Password is required</span>}
+                                        <input type={'password'}  defaultValue="" className='form-control' {...register("password", { required: true })} />
+                                        {errors.password && <span className='error'>Password is required</span>}
                                     </FormInput>
                                     <FormInput>
-                                        <input type="submit" />
+                                        <input type="submit" className='btn btn-info' />
                                     </FormInput>
                                 </form>
                             </FormWrapper>

@@ -17,6 +17,7 @@ import MembersComponent from './components/MembersComponent'
 import { useAtom } from 'jotai';
 import { userDetailsAtom } from './Helpers/AuthAtomObject';
 import MembersEventComponent from './components/members/MembersEventComponent';
+import OrganisationComponent from './components/OrganisationComponent';
 
  
 
@@ -57,6 +58,7 @@ const RoutesComponent = () => {
     },[authHeader, isAuthenticated])
 
     const isMember = userDetails?.user_access[0].access_level === UserAccess.member;
+    const isAdmin = userDetails?.user_access[0].access_level === UserAccess.admin;
     const checkAccessForNotMembers = isAuthenticated() && !isMember;
     console.log("checkAccessForNotMembers ", checkAccessForNotMembers)
     return ( 
@@ -65,6 +67,13 @@ const RoutesComponent = () => {
                 <AuthUserDetails {...optionsUser} />
                 {!isAuthenticated() ? <NavigationComponent /> : <AuthenticatedTopNavigationComponent />}
                 <Routes>
+                    {
+                        isAdmin && <Route path={chursterLink.organisations} element={
+                            <RequireAuth loginPath={chursterLink.home}>
+                                <OrganisationComponent />
+                            </RequireAuth>
+                        }/>
+                    }
                     {!checkAccessForNotMembers && <Route path={chursterLink.memberDashboard} element={
                         <RequireAuth loginPath={chursterLink.home}>
                             <MembersEventComponent />
