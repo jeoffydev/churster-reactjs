@@ -11,11 +11,11 @@ import FooterComponent from './components/GeneralComponent/FooterComponent'
 import {styled} from "@mui/system"; 
 import AuthenticatedTopNavigationComponent from './components/NavigationComponent/AuthenticatedTopNavigationComponent';
 import axios from "axios"; 
-import { IUserOptions, UserAccess } from './Types/chursterType'
+import { IUserOptions } from './Types/chursterType'
 import AuthUserDetails from './components/CustomHookComponent/AuthUserDetails';
 import MembersComponent from './components/MembersComponent'
 import { useAtom } from 'jotai';
-import { userDetailsAtom } from './Helpers/AuthAtomObject';
+import { isMemberAtom, isAdminAtom, appIsLoading } from './Helpers/AuthAtomObject';
 import MembersEventComponent from './components/members/MembersEventComponent';
 import OrganisationComponent from './components/OrganisationComponent';
 
@@ -37,8 +37,10 @@ const RoutesComponent = () => {
     const isAuthenticated = useIsAuthenticated() 
     const authHeader = useAuthHeader(); 
     const authUser = useAuthUser()
-    const [isEnabled, setIsEnabled]= useState(false);
-    const [userDetails, ] = useAtom(userDetailsAtom); 
+    const [isEnabled, setIsEnabled]= useState(false); 
+    const [isMember, ] = useAtom(isMemberAtom); 
+    const [isAdmin, ] = useAtom(isAdminAtom); 
+    const [isLoading, ] = useAtom(appIsLoading);
  
     /* Eery refresh get the user details */
     const optionsUser : IUserOptions = {  
@@ -56,55 +58,78 @@ const RoutesComponent = () => {
             axios.defaults.headers.common['Authorization'] = authHeader();
         }
     },[authHeader, isAuthenticated])
-
-    const isMember = userDetails?.user_access[0].access_level === UserAccess.member;
-    const isAdmin = userDetails?.user_access[0].access_level === UserAccess.admin;
-    const checkAccessForNotMembers = isAuthenticated() && !isMember;
-    console.log("checkAccessForNotMembers ", checkAccessForNotMembers)
+  
+    const checkAccessForNotMembers = isAuthenticated() && !isMember; 
+    console.log("IS LOADING ", isLoading)
     return ( 
         <BrowserRouter>
             <PageWrapper>
-                <AuthUserDetails {...optionsUser} />
-                {!isAuthenticated() ? <NavigationComponent /> : <AuthenticatedTopNavigationComponent />}
+                <AuthUserDetails {...optionsUser} /> 
+
+                { !isLoading &&  ( 
+                        <>
+                            {!isAuthenticated() ? <NavigationComponent /> : <AuthenticatedTopNavigationComponent />}
+                        </>
+                )}
+                
                 <Routes>
+                   
                     {
                         isAdmin && <Route path={chursterLink.organisations} element={
                             <RequireAuth loginPath={chursterLink.home}>
                                 <OrganisationComponent />
                             </RequireAuth>
                         }/>
-                    }
-                    {!checkAccessForNotMembers && <Route path={chursterLink.memberDashboard} element={
-                        <RequireAuth loginPath={chursterLink.home}>
-                            <MembersEventComponent />
-                        </RequireAuth>
-                    }/>}
+                    } 
                     <Route
                         path={chursterLink.home}
                         element={ checkAccessForNotMembers  ? <Navigate to={chursterLink.dashboard} /> : <HomeComponent/> }
                     />  
                     <Route path={chursterLink.about} element={<p>About Us</p>}/>
-                    <Route path={chursterLink.contact} element={<p>Contact Us</p>}/> 
-                   
+                    <Route path={chursterLink.contact} element={<p>Contact Us</p>}/>  
+                     
+                    { !isLoading  && (
+                        <>
+                            {checkAccessForNotMembers && ( 
+                                    <> 
+                                                <Route path={chursterLink.dashboard} element={
+                                                    <RequireAuth loginPath={chursterLink.home}>
+                                                        <SecureComponent/>
+                                                    </RequireAuth>
+                                                }/>
+                    
+                                                <Route path={chursterLink.members} element={
+                                                    <RequireAuth loginPath={chursterLink.home}>
+                                                        <MembersComponent />
+                                                    </RequireAuth>
+                                                }/>
+                    
+                                                <Route path={chursterLink.createEvent} element={
+                                                    <RequireAuth loginPath={chursterLink.home}>
+                                                        <CreateEventComponent />
+                                                    </RequireAuth>
+                                                }/>  
+                                    </> 
+                                )
+                            }
 
-                    {checkAccessForNotMembers && <Route path={chursterLink.dashboard} element={
-                        <RequireAuth loginPath={chursterLink.home}>
-                            <SecureComponent/>
-                        </RequireAuth>
-                    }/>}
-                    
-                    {checkAccessForNotMembers && <Route path={chursterLink.members} element={
-                        <RequireAuth loginPath={chursterLink.home}>
-                            <MembersComponent />
-                        </RequireAuth>
-                    }/>}
-                    {checkAccessForNotMembers && <Route path={chursterLink.createEvent} element={
-                        <RequireAuth loginPath={chursterLink.home}>
-                            <CreateEventComponent />
-                        </RequireAuth>
-                    }/>}
-                    
-                    <Route path="*" element={<p>There's nothing here: 404!</p>} />
+                            {!checkAccessForNotMembers && 
+                                (
+                                    <> 
+                                        <Route path={chursterLink.memberDashboard} element={
+                                                    <RequireAuth loginPath={chursterLink.home}>
+                                                        <MembersEventComponent />
+                                                    </RequireAuth>
+                                        }/> 
+                                    </>
+                                )
+                            }
+                            
+                            <Route path="*" element={<p>There's nothing here: 404!</p>} />
+                        </> 
+                    )}
+
+
                 </Routes>
                 <FooterComponent />
             </PageWrapper>

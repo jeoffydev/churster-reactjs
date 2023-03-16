@@ -18,7 +18,7 @@ import ListItemText from '@mui/material/ListItemText';
 import PersonIcon from '@mui/icons-material/Person';
 import {  ICreateForm, IOrganisation, IUserDetails } from '../Types/chursterType';
 import { useAtom } from 'jotai';
-import { userDetailsAtom, userOrganisationAtom } from './../Helpers/AuthAtomObject';
+import { userDetailsAtom, userOrganisationAtom, isAdminAtom } from './../Helpers/AuthAtomObject';
 import { useMutation } from 'react-query';
 import { getAllOrganisationsQuery } from '../Queries/OrganisationQueries';
 
@@ -55,6 +55,7 @@ const MembersComponent = () => {
      //User Atom object
     const [userDetails, ] = useAtom(userDetailsAtom); 
     const [orgDetails, ] = useAtom(userOrganisationAtom); 
+    const [isAdmin, ] = useAtom(isAdminAtom); 
     //Create user form
     const createMutation = useMutation(createUserQuery);
 
@@ -96,10 +97,7 @@ const MembersComponent = () => {
         createMutation.mutate(data); 
         reset({ ...data })
         
-    } 
-
-    //Check if admin      
-    const isAdmin: boolean =  userDetails?.user_access[0]?.access_level === 1;
+    }
      
     return (  
         <AdminLayoutComponent> 

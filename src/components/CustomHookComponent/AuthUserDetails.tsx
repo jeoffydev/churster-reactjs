@@ -4,10 +4,12 @@ import { IUserOptions, IUserDetails } from '../../Types/chursterType';
 import { useAtom } from 'jotai'; 
 import { useQuery } from 'react-query'; 
 import { userDetailsQuery } from "../../Queries/LoginQueries"; 
-import { userDetailsAtom, userOrganisationAtom } from '../../Helpers/AuthAtomObject';  
+import { userDetailsAtom, userOrganisationAtom, isAdminAtom, isContractorAtom, isMemberAtom, appIsLoading } from '../../Helpers/AuthAtomObject';  
 import {useNavigate } from 'react-router-dom'
 import { chursterLink } from '../../Helpers/routeHelper';
-import {   useSignOut    } from 'react-auth-kit' 
+import {   useSignOut    } from 'react-auth-kit'  
+import { UserAccess } from './../../Types/chursterType'; 
+import LoadingComponent from "../GeneralComponent/LoadingComponent";
 
 export const USER_LIST_REFETCH_INTERVAL = 1000 * 60;
  
@@ -17,7 +19,11 @@ export const AuthUserDetails = (options: IUserOptions) => {
     const id: number = parseInt(userID);
     const [, setUserFetched ]= useState<IUserDetails | undefined>(undefined);
     const [, setUserDetails] = useAtom(userDetailsAtom); 
-    const [, setOrgDetails] = useAtom(userOrganisationAtom);   
+    const [, setOrgDetails] = useAtom(userOrganisationAtom);  
+    const [, setIsAdmin] = useAtom(isAdminAtom); 
+    const [, setIsContractor] = useAtom(isContractorAtom); 
+    const [, setIsMember] = useAtom(isMemberAtom); 
+    const [isLoading, setAppIsLoading] = useAtom(appIsLoading);
     const navigate = useNavigate()
     const signOut = useSignOut(); 
 
@@ -27,19 +33,22 @@ export const AuthUserDetails = (options: IUserOptions) => {
                 refetchInterval: USER_LIST_REFETCH_INTERVAL,
                 refetchOnWindowFocus: false,
       });
- 
       
       useEffect(()=>{
+        console.log("IN WITHOUT1 ", isAuthenticated )
             if(data && isSuccess && isAuthenticated){   
                 console.count("COUNT in AUTHUSERDETAILS 1")
-                //Save to atoms
+                //Save to atoms 
                 setUserFetched(data.data.userDetails);
                 setUserDetails(data.data.userDetails);
-                setOrgDetails(data.data.userOrganisation[0].organisation[0])
+                setOrgDetails(data.data.userOrganisation[0].organisation[0]);
+                setIsAdmin(data.data.userDetails.user_access[0].access_level === UserAccess.admin);
+                setIsContractor(data.data.userDetails.user_access[0].access_level === UserAccess.constructor);
+                setIsMember(data.data.userDetails.user_access[0].access_level === UserAccess.member);
             } 
 
-            if(isError && status === 'error'){
-                console.count("COUNT in AUTHUSERDETAILS 2")
+            if(isError && status === 'error'){ 
+                setAppIsLoading(false);
                 signOut()
                 navigate(chursterLink.home)  
             }
@@ -52,10 +61,28 @@ export const AuthUserDetails = (options: IUserOptions) => {
           navigate, 
           signOut, 
           setOrgDetails, 
-          setUserDetails
+          setUserDetails,
+          setIsAdmin,
+          setIsContractor,
+          setIsMember,
         ]) 
+
+        useEffect(()=> {  
+            setAppIsLoading(true) 
+            if(status === 'success' || !isAuthenticated) {
+                setAppIsLoading(false);
+            }  
+        }, [
+            isAuthenticated,
+            status,
+            setAppIsLoading
+        ]); 
      
-    return <></>;
+    return <>
+        {isLoading ? (
+            <LoadingComponent /> 
+        ): <></>}
+    </>;
 };
 
 export default AuthUserDetails;

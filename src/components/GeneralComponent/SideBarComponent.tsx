@@ -1,6 +1,6 @@
 import React from 'react'    
 import { useAtom } from 'jotai';
-import { userOrganisationAtom, userDetailsAtom } from './../../Helpers/AuthAtomObject'; 
+import { userOrganisationAtom, userDetailsAtom, isAdminAtom } from './../../Helpers/AuthAtomObject'; 
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import ChurchIcon from '@mui/icons-material/Church'; 
@@ -27,10 +27,9 @@ const style = {
 const SideBarComponent = () => {   
     const [orgDetails, ] = useAtom(userOrganisationAtom); 
     const [userDetails, ] = useAtom(userDetailsAtom); 
-    const isAdmin: boolean =  userDetails?.user_access[0]?.access_level === 1;
+    const [isAdmin, ] = useAtom(isAdminAtom);
     const labelName = orgDetails?.org_name ? orgDetails.org_name : "..."
-    const navigate = useNavigate()
-    console.log("userDetails ", userDetails)  
+    const navigate = useNavigate() 
     return  (<React.Fragment>  
                 <> 
                     {
