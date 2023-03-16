@@ -1,6 +1,6 @@
 # DEMO
 
-This project is a starting project with Authentication [DEMO](https://share.vidyard.com/watch/tihtpczbuUcFDLBrKP8cTG?).
+This project is a starting project with Authentication (Updated) [DEMO](https://share.vidyard.com/watch/tihtpczbuUcFDLBrKP8cTG?).
 
 ## Available Scripts
 
