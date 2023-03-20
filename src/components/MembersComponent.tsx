@@ -10,7 +10,7 @@ import { chursterString } from '../Helpers/stringHelper';
 import { useQuery } from 'react-query'; 
 import { contractorGetAllMembersQuery, createUserQuery } from '../Queries/LoginQueries';
 import {useIsAuthenticated, useAuthHeader} from 'react-auth-kit'
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm  } from "react-hook-form";
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -52,8 +52,7 @@ const MembersComponent = () => {
     const authHeader = useAuthHeader(); 
     const { register, handleSubmit,  formState: { errors }, reset } = useForm<ICreateForm>();
     const [queryMembers, setQueryMembers]= useState(false);
-     //User Atom object
-    const [userDetails, ] = useAtom(userDetailsAtom); 
+     //User Atom object 
     const [orgDetails, ] = useAtom(userOrganisationAtom); 
     const [isAdmin, ] = useAtom(isAdminAtom); 
     //Create user form

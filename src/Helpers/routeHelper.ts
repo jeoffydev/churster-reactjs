@@ -12,4 +12,5 @@ export enum chursterLink {
     songs = "/songs",
     memberDashboard = "/member-dashboard",
     organisations = "/organisations",
+    events = "/events",
 }

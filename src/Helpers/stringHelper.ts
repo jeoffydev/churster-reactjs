@@ -38,6 +38,7 @@ export enum chursterString {
     listOrgTxt = "List for this organization",
     organisations = "Organisations",
     allOrganisations = "All Organisations",
+    noEvents = "No Events",
 
     //Dashboard
     departments = "Departments",
@@ -57,6 +58,7 @@ export enum chursterString {
     //Members dashboard
     upcomingEvent = "Upcoming Event",
     myEvent = "My Event",
+    events = "Events",
 
     //loading
     loading = "...Loading"

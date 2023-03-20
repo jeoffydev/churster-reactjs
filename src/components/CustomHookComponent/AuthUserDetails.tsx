@@ -4,7 +4,7 @@ import { IUserOptions, IUserDetails } from '../../Types/chursterType';
 import { useAtom } from 'jotai'; 
 import { useQuery } from 'react-query'; 
 import { userDetailsQuery } from "../../Queries/LoginQueries"; 
-import { userDetailsAtom, userOrganisationAtom, isAdminAtom, isContractorAtom, isMemberAtom, appIsLoading } from '../../Helpers/AuthAtomObject';  
+import { userDetailsAtom, userOrganisationAtom, isAdminAtom, isContractorAtom, isMemberAtom, appIsLoading, organisationIDAtom } from '../../Helpers/AuthAtomObject';  
 import {useNavigate } from 'react-router-dom'
 import { chursterLink } from '../../Helpers/routeHelper';
 import {   useSignOut    } from 'react-auth-kit'  
@@ -24,6 +24,7 @@ export const AuthUserDetails = (options: IUserOptions) => {
     const [, setIsContractor] = useAtom(isContractorAtom); 
     const [, setIsMember] = useAtom(isMemberAtom); 
     const [isLoading, setAppIsLoading] = useAtom(appIsLoading);
+    const [, setOrgId] = useAtom(organisationIDAtom);
     const navigate = useNavigate()
     const signOut = useSignOut(); 
 
@@ -32,7 +33,7 @@ export const AuthUserDetails = (options: IUserOptions) => {
                 enabled: isAuthenticated && isEnabled, //only enable query
                 refetchInterval: USER_LIST_REFETCH_INTERVAL,
                 refetchOnWindowFocus: false,
-      });
+      }); 
       
       useEffect(()=>{
             if(data && isSuccess && isAuthenticated){   
@@ -44,6 +45,7 @@ export const AuthUserDetails = (options: IUserOptions) => {
                 setIsAdmin(data.data.userDetails.user_access[0].access_level === UserAccess.admin);
                 setIsContractor(data.data.userDetails.user_access[0].access_level === UserAccess.constructor);
                 setIsMember(data.data.userDetails.user_access[0].access_level === UserAccess.member);
+                setOrgId(data.data.userOrganisation[0].org_id);
             } 
 
             if(isError && status === 'error'){ 
@@ -59,11 +61,13 @@ export const AuthUserDetails = (options: IUserOptions) => {
           isAuthenticated, 
           navigate, 
           signOut, 
+          setUserFetched,
           setOrgDetails, 
           setUserDetails,
           setIsAdmin,
           setIsContractor,
           setIsMember,
+          setOrgId
         ]) 
 
         useEffect(()=> {  

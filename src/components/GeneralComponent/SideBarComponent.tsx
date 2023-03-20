@@ -25,8 +25,7 @@ const style = {
   };
 
 const SideBarComponent = () => {   
-    const [orgDetails, ] = useAtom(userOrganisationAtom); 
-    const [userDetails, ] = useAtom(userDetailsAtom); 
+    const [orgDetails, ] = useAtom(userOrganisationAtom);  
     const [isAdmin, ] = useAtom(isAdminAtom);
     const labelName = orgDetails?.org_name ? orgDetails.org_name : "..."
     const navigate = useNavigate() 
@@ -53,7 +52,14 @@ const SideBarComponent = () => {
                                 </ListItem>
                             )
                         }
-                        
+                        <ListItem button onClick={()=>navigate(chursterLink.events)}>
+                            <ListItemAvatar>
+                                <Avatar>
+                                    <PeopleAltIcon />
+                                </Avatar>
+                            </ListItemAvatar>
+                            <ListItemText primary={chursterString.events}  />
+                        </ListItem>
                         <ListItem button onClick={()=>navigate(chursterLink.members)}>
                             <ListItemAvatar>
                                 <Avatar>

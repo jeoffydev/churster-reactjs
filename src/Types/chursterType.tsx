@@ -70,8 +70,10 @@ export interface IUserOptions {
 
 export interface IEventTypes {
   id: number;
-  eventName: string;
-  eventDate: string;
+  active: number | string;
+  title: string;
+  description: string;
+  date: string;
 } 
 
 export const UserAccess = {

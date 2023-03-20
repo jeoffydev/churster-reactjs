@@ -18,6 +18,7 @@ import { useAtom } from 'jotai';
 import { isMemberAtom, isAdminAtom, appIsLoading } from './Helpers/AuthAtomObject';
 import MembersEventComponent from './components/members/MembersEventComponent';
 import OrganisationComponent from './components/OrganisationComponent';
+import EventsComponent from './components/EventsComponent';
 
  
 
@@ -95,6 +96,12 @@ const RoutesComponent = () => {
                                                 <Route path={chursterLink.dashboard} element={
                                                     <RequireAuth loginPath={chursterLink.home}>
                                                         <SecureComponent/>
+                                                    </RequireAuth>
+                                                }/>
+
+                                                <Route path={chursterLink.events} element={
+                                                    <RequireAuth loginPath={chursterLink.home}>
+                                                        <EventsComponent />
                                                     </RequireAuth>
                                                 }/>
                     

@@ -51,13 +51,17 @@ const CreateEventComponent = () => {
     const eventTeaser: IEventTypes[]  = [
         {
             id: 1,
-            eventName: '#Event Name1',
-            eventDate: '#Event Date1'
+            active: 1,
+            title: '#Event Name1',
+            description: "Test 1",
+            date: '#Event Date1'
         },
         {
             id: 2,
-            eventName: '#Event Name2',
-            eventDate: '#Event Date2'
+            active: 1,
+            title: '#Event Name2',
+            description: "Test 2",
+            date: '#Event Date2'
         },
     ];
 
@@ -72,10 +76,10 @@ const CreateEventComponent = () => {
                             <BoxedDivMap key={index}>
                                 <BoxedCardContent key={index}>
                                     <Typography gutterBottom>
-                                        {event.eventDate}
+                                        {event.date}
                                     </Typography>
                                     <Typography variant="body2">
-                                        {event.eventName}
+                                        {event.title}
                                     </Typography>
                                 </BoxedCardContent>
                                 <CardActions>
