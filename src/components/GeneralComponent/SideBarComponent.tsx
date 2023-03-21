@@ -17,6 +17,7 @@ import { chursterString } from '../../Helpers/stringHelper';
 import AudiotrackIcon from '@mui/icons-material/Audiotrack';
 import PianoIcon from '@mui/icons-material/Piano';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 const style = {
     width: '100%',
@@ -55,7 +56,7 @@ const SideBarComponent = () => {
                         <ListItem button onClick={()=>navigate(chursterLink.events)}>
                             <ListItemAvatar>
                                 <Avatar>
-                                    <PeopleAltIcon />
+                                    <CalendarMonthIcon />
                                 </Avatar>
                             </ListItemAvatar>
                             <ListItemText primary={chursterString.events}  />

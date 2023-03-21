@@ -41,7 +41,7 @@ const AuthenticatedTopNavigationComponent = () => {
     const open = Boolean(anchorEl);
     const navigate = useNavigate();
     const logoutMutation = useMutation(logoutQuery); 
-    const [userDetails, ] = useAtom(userDetailsAtom); 
+    const [userDetails, ] = useAtom(userDetailsAtom);  
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
       setAnchorEl(event.currentTarget);
@@ -53,7 +53,7 @@ const AuthenticatedTopNavigationComponent = () => {
     const handleLogout = ()=>{
         //use this => if logoutMutation.data.success === 'logout'
         signOut()
-        navigate(chursterLink.home)  
+        navigate(chursterLink.home)   
         logoutMutation.mutate();  
     }
     
