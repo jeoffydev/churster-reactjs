@@ -61,7 +61,7 @@ const RoutesComponent = () => {
     },[authHeader, isAuthenticated])
   
     const checkAccessForNotMembers = isAuthenticated() && !isMember; 
-    console.log("IS LOADING ", isLoading)
+   
     return ( 
         <BrowserRouter>
             <PageWrapper>

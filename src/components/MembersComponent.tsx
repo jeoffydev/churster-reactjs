@@ -8,7 +8,7 @@ import { styled } from '@mui/material/styles';
 import { ExtraPalette } from '../Helpers/constant';
 import { chursterString } from '../Helpers/stringHelper';
 import { useQuery } from 'react-query'; 
-import { contractorGetAllMembersQuery, createUserQuery } from '../Queries/LoginQueries';
+import { adminGetAllContractorsQuery, contractorGetAllMembersQuery, createUserQuery } from '../Queries/LoginQueries';
 import {useIsAuthenticated, useAuthHeader} from 'react-auth-kit'
 import { useForm  } from "react-hook-form";
 import List from '@mui/material/List';
@@ -58,13 +58,13 @@ const MembersComponent = () => {
     //Create user form
     const createMutation = useMutation(createUserQuery);
 
-    const {  data, status } = useQuery( "contractorGetAllMembers", () =>contractorGetAllMembersQuery(),
+    const {  data, status } = useQuery( "contractorGetAllMembers", () => isAdmin ? adminGetAllContractorsQuery() : contractorGetAllMembersQuery(),
     {
         enabled: queryMembers,
         refetchOnWindowFocus: true,
         refetchInterval: 2000,
     });
-
+console.log("MEMBERs ", data)
     //Get all the organisations for this user
     const {  data: allOrganisations   } = useQuery( "getAllOrganisations", () =>getAllOrganisationsQuery());
  

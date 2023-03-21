@@ -6,8 +6,7 @@ import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import { ExtraPalette } from '../Helpers/constant';
 import { chursterString } from '../Helpers/stringHelper';
-import { useQuery } from 'react-query'; 
-import {  createUserQuery } from '../Queries/LoginQueries'; 
+import { useQuery } from 'react-query';  
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -40,8 +39,7 @@ const EventsComponent = () => {
         enabled: !!orgID,
         refetchInterval: 500
     });
-     
-      
+    
     return (  
         <AdminLayoutComponent> 
             <BoxWrapper>
@@ -75,7 +73,7 @@ const EventsComponent = () => {
                                         )
                                     }) 
                                 }
-                                { status !== 'loading' && isAdmin && `${chursterString.noEvents}` }
+                                { status === 'success' &&   data?.data.error && `${chursterString.noEvents}` }
                             </List>
                         </Item>
                     </Grid> 

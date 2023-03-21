@@ -59,8 +59,9 @@ const MembersEventComponent = () => {
         refetchInterval: 500
     });
    
-    const events: IEventTypes[] = status === 'success'  && data?.data.organisationEvent; 
-    const eventActive: boolean = status === 'success'  && data?.data.organisationEvent[0] && ( data?.data.organisationEvent[0].active === 1 || data?.data.organisationEvent[0].active === '1' );
+    const events: IEventTypes[] = status === 'success' && !data?.data.error  && data?.data.organisationEvent; 
+    const eventActive: boolean = status === 'success' && !data?.data.error  && data?.data.organisationEvent[0] && ( data?.data.organisationEvent[0].active === 1 || data?.data.organisationEvent[0].active === '1' );
+   
     return (
         <> 
             <BoxWrapper>

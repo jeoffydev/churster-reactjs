@@ -26,15 +26,10 @@ const SecureComponent = () => {
     const navigate = useNavigate()
     const authHeader = useAuthHeader() 
 
-    console.log("AUTH ", authUser())
-    console.log("isAuthenticated ", isAuthenticated())
-    console.log("authHeader ", authHeader())
  
     
     return (  
-        <AdminLayoutComponent> 
-            <p> <button onClick={()=>{navigate("/create-event")}}>Go to create event</button></p>
-
+        <AdminLayoutComponent>  
             <BoxWrapper>
                 <Grid container spacing={2}>
                     <Grid item xs={4}>

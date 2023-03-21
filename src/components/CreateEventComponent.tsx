@@ -14,6 +14,10 @@ import Typography from '@mui/material/Typography';
 import { chursterString } from '../Helpers/stringHelper';
 import TrendingFlatIcon from '@mui/icons-material/TrendingFlat';
 import { IEventTypes } from './../Types/chursterType';
+import { useAtom } from 'jotai';
+import { organisationIDAtom } from '../Helpers/AuthAtomObject';
+import { useQuery } from 'react-query';
+import { getOrgEventsQuery } from '../Queries/EventQueries';
 
 const Item = styled(Paper)(() => ({
     backgroundColor: ExtraPalette.c_fff,
@@ -35,6 +39,7 @@ const Item = styled(Paper)(() => ({
     display: 'flex',
     justifyContent: 'left',
     justifyItems:'flex-start',
+    flexDirection: 'column',
     "& p": {
         textAlign: 'left'
     }
@@ -45,27 +50,24 @@ const Item = styled(Paper)(() => ({
     borderBottom: `1px solid ${ExtraPalette.c_253040}`
  }));
 
+ const TypographyWrapper = styled(Typography)(()=>({
+    display: 'flex',  
+ }));
+
 const CreateEventComponent = () => {
 
-    // placeholder/sample data from api
-    const eventTeaser: IEventTypes[]  = [
-        {
-            id: 1,
-            active: 1,
-            title: '#Event Name1',
-            description: "Test 1",
-            date: '#Event Date1'
-        },
-        {
-            id: 2,
-            active: 1,
-            title: '#Event Name2',
-            description: "Test 2",
-            date: '#Event Date2'
-        },
-    ];
+    const [orgID, ] = useAtom(organisationIDAtom);  
 
-    const checkBoolEventTeaser: boolean = eventTeaser.length > 0;
+    //Get all events from this Orgnaisation
+    const {  data, status   } =  useQuery( "getOrgEvents", () =>getOrgEventsQuery(orgID), {
+        enabled: !!orgID,
+        refetchInterval: 500
+    });
+ 
+    // placeholder/sample data from api
+    const eventTeaser: IEventTypes[]  =  data?.data.organisationEvent;
+
+    const checkBoolEventTeaser: boolean =  eventTeaser && eventTeaser.length > 0;
 
     const card = (
         <>
@@ -75,12 +77,12 @@ const CreateEventComponent = () => {
                         <div key={index}>
                             <BoxedDivMap key={index}>
                                 <BoxedCardContent key={index}>
-                                    <Typography gutterBottom>
-                                        {event.date}
-                                    </Typography>
-                                    <Typography variant="body2">
-                                        {event.title}
-                                    </Typography>
+                                    <TypographyWrapper variant="body2" gutterBottom>
+                                        <span>{event.date}</span>
+                                    </TypographyWrapper>
+                                    <TypographyWrapper variant="body2">
+                                        <span>{event.title}</span>
+                                    </TypographyWrapper>
                                 </BoxedCardContent>
                                 <CardActions>
                                     <Button size="small">Read more <TrendingFlatIcon /></Button>

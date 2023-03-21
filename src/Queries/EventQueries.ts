@@ -9,7 +9,7 @@ import { isLocalhost } from './Setup';
   */
 const url = isLocalhost();  
 
-export async function getOrgEventsQuery(id: number | undefined) { 
+export async function getOrgEventsQuery(id: number | undefined) {  
     const response =  await axios.get(`${url}/api/events/${id}`)  
     return  response;
 }

@@ -25,6 +25,11 @@ export async function userDetailsQuery(id: number) {
     return  response;
 }
 
+export async function adminGetAllContractorsQuery() { 
+    const response = await axios.get(`${url}/api/contractors/users/all`)  
+    return  response;
+}
+
 export async function contractorGetAllMembersQuery() { 
     const response = await axios.get(`${url}/api/contractors/users`)  
     return  response;
