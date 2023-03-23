@@ -8,7 +8,7 @@ import { styled } from '@mui/material/styles';
 import { ExtraPalette } from '../Helpers/constant';
 import { chursterString } from '../Helpers/stringHelper';
 import { useQuery } from 'react-query'; 
-import { adminGetAllContractorsQuery, contractorGetAllMembersQuery, createUserQuery } from '../Queries/LoginQueries';
+import {   createUserQuery } from '../Queries/LoginQueries';
 import {useIsAuthenticated, useAuthHeader} from 'react-auth-kit'
 import { useForm  } from "react-hook-form";
 import List from '@mui/material/List';
@@ -18,7 +18,7 @@ import ListItemText from '@mui/material/ListItemText';
 import PersonIcon from '@mui/icons-material/Person';
 import {  ICreateForm, IOrganisation, IUserDetails } from '../Types/chursterType';
 import { useAtom } from 'jotai';
-import { userDetailsAtom, userOrganisationAtom, isAdminAtom, appIsLoading } from './../Helpers/AuthAtomObject';
+import { userOrganisationAtom, isAdminAtom  } from './../Helpers/AuthAtomObject';
 import { useMutation } from 'react-query';
 import { getAllOrganisationsQuery } from '../Queries/OrganisationQueries';
 import useGetContractorMembers from './CustomHookComponent/useContractMembersQuery';
@@ -55,8 +55,8 @@ const MembersComponent = () => {
     const [queryMembers, setQueryMembers]= useState(false);
      //User Atom object 
     const [orgDetails, ] = useAtom(userOrganisationAtom); 
-    const [isAdmin, ] = useAtom(isAdminAtom); 
-    const [isLoading, ] = useAtom(appIsLoading);
+    const [isAdmin, ] = useAtom(isAdminAtom);   
+
     //Create user form
     const createMutation = useMutation(createUserQuery);
 
@@ -67,10 +67,8 @@ const MembersComponent = () => {
 //         refetchInterval: 800,
 //     });
     
-// console.log("MEMBERs DATA ", data)
-
-    const { data, status } = useGetContractorMembers(isAdmin, queryMembers);
-
+// console.log("MEMBERs DATA ", data) 
+    const { data, status, isIdle } = useGetContractorMembers(isAdmin, queryMembers);
   
     //Get all the organisations for this user
     const {  data: allOrganisations   } = useQuery( "getAllOrganisations", () =>getAllOrganisationsQuery());
@@ -83,17 +81,7 @@ const MembersComponent = () => {
 
     },[isAuthenticated, authHeader])
 
-    // console.log("isAuthenticated ", isAuthenticated())
-    // console.log("authHeader ", authHeader())
-
-    // console.log("QUERY ENABLED ", queryMembers)
-
-    // console.log("DATA ", data?.data);
-    // console.log("is success ", isSuccess)
-    // console.log("is Errro ", isError)
-    // console.log("status ", status)
-    // console.log("userDetails ", userDetails) 
-    // Submit form
+     
     
     const onSubmit = (data: ICreateForm) => {
         data.access = isAdmin ? 1 : 2;
@@ -133,7 +121,7 @@ const MembersComponent = () => {
                                 )
                             }
                             {
-                                status === 'success'  && data?.data && data.data.map((user: IUserDetails) => {
+                                status === 'success' && !isIdle  && data?.data && data.data.map((user: IUserDetails) => {
 
                                     return(
                                         <div key={user.id}>

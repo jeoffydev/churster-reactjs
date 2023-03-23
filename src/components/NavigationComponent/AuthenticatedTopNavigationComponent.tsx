@@ -16,7 +16,7 @@ import { chursterLink } from '../../Helpers/routeHelper';
 import LogoComponent from '../GeneralComponent/LogoComponent';
 import AddIcon from '@mui/icons-material/Add';
 import { useAtom } from 'jotai';
-import { userDetailsAtom } from './../../Helpers/AuthAtomObject';
+import { userDetailsAtom, isAdminAtom, isMemberAtom, isContractorAtom } from './../../Helpers/AuthAtomObject';
 import { UserAccess } from './../../Types/chursterType';
 
 const  MenuWrapper  = styled(Box)(() => ({  
@@ -42,6 +42,9 @@ const AuthenticatedTopNavigationComponent = () => {
     const navigate = useNavigate();
     const logoutMutation = useMutation(logoutQuery); 
     const [userDetails, ] = useAtom(userDetailsAtom);  
+    const [, setIsAdmin ] = useAtom(isAdminAtom); 
+    const [, setIsContractor ] = useAtom(isContractorAtom);
+    const [, setIsMember ] = useAtom(isMemberAtom);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
       setAnchorEl(event.currentTarget);
@@ -52,6 +55,9 @@ const AuthenticatedTopNavigationComponent = () => {
 
     const handleLogout = ()=>{
         //use this => if logoutMutation.data.success === 'logout'
+        setIsAdmin(false);
+        setIsMember(false);
+        setIsContractor(false);
         signOut()
         navigate(chursterLink.home)   
         logoutMutation.mutate();  

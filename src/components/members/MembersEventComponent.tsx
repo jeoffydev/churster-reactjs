@@ -54,13 +54,12 @@ const MembersEventComponent = () => {
     const [orgID, ] = useAtom(organisationIDAtom);  
     
      //Get all events from this Orgnaisation member
-     const {  data, status   } =  useQuery( ["getOrgEvents", orgID], () =>getOrgEventsQuery(orgID), {
-        enabled: !!orgID,
-        refetchInterval: 500
+     const {  data, status, isIdle   } =  useQuery( ["getOrgEvents", orgID], () =>getOrgEventsQuery(orgID), {
+        enabled: !!orgID, 
     });
-   
-    const events: IEventTypes[] = status === 'success' && !data?.data.error  && data?.data.organisationEvent; 
-    const eventActive: boolean = status === 'success' && !data?.data.error  && data?.data.organisationEvent[0] && ( data?.data.organisationEvent[0].active === 1 || data?.data.organisationEvent[0].active === '1' );
+    
+    const events: IEventTypes[] = status === 'success'   && !data?.data.error  && data?.data.organisationEvent; 
+    const eventActive: boolean = status === 'success'   && !data?.data.error  && data?.data.organisationEvent[0] && ( data?.data.organisationEvent[0].active === 1 || data?.data.organisationEvent[0].active === '1' );
    
     return (
         <> 
