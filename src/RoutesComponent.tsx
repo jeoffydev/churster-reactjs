@@ -60,7 +60,7 @@ const RoutesComponent = () => {
         }
     },[authHeader, isAuthenticated])
   
-    const checkAccessForNotMembers = isAuthenticated() && !isMember; 
+    const isNotMembers = isAuthenticated() && !isMember; 
    
     return ( 
         <BrowserRouter>
@@ -84,14 +84,14 @@ const RoutesComponent = () => {
                     } 
                     <Route
                         path={chursterLink.home}
-                        element={ checkAccessForNotMembers  ? <Navigate to={chursterLink.dashboard} /> : <HomeComponent/> }
+                        element={ isNotMembers  ? <Navigate to={chursterLink.dashboard} /> : <HomeComponent/> }
                     />  
                     <Route path={chursterLink.about} element={<p>About Us</p>}/>
                     <Route path={chursterLink.contact} element={<p>Contact Us</p>}/>  
                      
                     { !isLoading  && (
                         <>
-                            {checkAccessForNotMembers && ( 
+                            {isNotMembers && ( 
                                     <> 
                                                 <Route path={chursterLink.dashboard} element={
                                                     <RequireAuth loginPath={chursterLink.home}>
@@ -120,7 +120,7 @@ const RoutesComponent = () => {
                                 )
                             }
 
-                            {!checkAccessForNotMembers && 
+                            {!isNotMembers && 
                                 (
                                     <> 
                                         <Route path={chursterLink.memberDashboard} element={

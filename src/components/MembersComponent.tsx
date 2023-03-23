@@ -18,9 +18,10 @@ import ListItemText from '@mui/material/ListItemText';
 import PersonIcon from '@mui/icons-material/Person';
 import {  ICreateForm, IOrganisation, IUserDetails } from '../Types/chursterType';
 import { useAtom } from 'jotai';
-import { userDetailsAtom, userOrganisationAtom, isAdminAtom } from './../Helpers/AuthAtomObject';
+import { userDetailsAtom, userOrganisationAtom, isAdminAtom, appIsLoading } from './../Helpers/AuthAtomObject';
 import { useMutation } from 'react-query';
 import { getAllOrganisationsQuery } from '../Queries/OrganisationQueries';
+import useGetContractorMembers from './CustomHookComponent/useContractMembersQuery';
 
 const Item = styled(Paper)(() => ({
     backgroundColor: ExtraPalette.c_fff,
@@ -55,16 +56,22 @@ const MembersComponent = () => {
      //User Atom object 
     const [orgDetails, ] = useAtom(userOrganisationAtom); 
     const [isAdmin, ] = useAtom(isAdminAtom); 
+    const [isLoading, ] = useAtom(appIsLoading);
     //Create user form
     const createMutation = useMutation(createUserQuery);
 
-    const {  data, status } = useQuery( "contractorGetAllMembers", () => isAdmin ? adminGetAllContractorsQuery() : contractorGetAllMembersQuery(),
-    {
-        enabled: queryMembers,
-        refetchOnWindowFocus: true,
-        refetchInterval: 2000,
-    });
-console.log("MEMBERs ", data)
+//     const {  data, status } = useQuery( "contractorGetAllMembers", () => isAdmin ? adminGetAllContractorsQuery() : contractorGetAllMembersQuery(),
+//     {
+//         enabled: queryMembers,
+//         refetchOnWindowFocus: true,
+//         refetchInterval: 800,
+//     });
+    
+// console.log("MEMBERs DATA ", data)
+
+    const { data, status } = useGetContractorMembers(isAdmin, queryMembers);
+
+  
     //Get all the organisations for this user
     const {  data: allOrganisations   } = useQuery( "getAllOrganisations", () =>getAllOrganisationsQuery());
  
@@ -94,6 +101,7 @@ console.log("MEMBERs ", data)
             data.organisation_id = orgDetails?.id;
         }
         createMutation.mutate(data); 
+        setQueryMembers(true);
         reset({ ...data })
         
     }

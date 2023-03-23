@@ -54,7 +54,7 @@ const MembersEventComponent = () => {
     const [orgID, ] = useAtom(organisationIDAtom);  
     
      //Get all events from this Orgnaisation member
-     const {  data, status   } =  useQuery( "getOrgEvents", () =>getOrgEventsQuery(orgID), {
+     const {  data, status   } =  useQuery( ["getOrgEvents", orgID], () =>getOrgEventsQuery(orgID), {
         enabled: !!orgID,
         refetchInterval: 500
     });

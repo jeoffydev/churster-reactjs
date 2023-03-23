@@ -21,8 +21,7 @@ import {useIsAuthenticated, useSignIn} from 'react-auth-kit'
 import {useNavigate } from 'react-router-dom'
 import { chursterLink } from '../../Helpers/routeHelper';
 import { useAtom } from 'jotai';
-import { userDetailsAtom, userOrganisationAtom } from './../../Helpers/AuthAtomObject';
- 
+import { userDetailsAtom, userOrganisationAtom, isAdminAtom, isContractorAtom, isMemberAtom } from './../../Helpers/AuthAtomObject'; 
 
 const BoxWrapper = styled(Box)(() => ({
     display:'flex',
@@ -49,6 +48,7 @@ const ButtonSubmit = styled(Button)(()=>({
 const CircularLoadingStyled = styled(CircularProgress)(()=>({ 
      color: `${ExtraPalette.c_ffffff} !important`
 }));
+
  
 
 const BackdropLoading = styled(Backdrop)(()=>({ 
@@ -68,7 +68,9 @@ const LoginFormComponent = () => {
     //User Atom object
     const [userDetails, setUserDetails] = useAtom(userDetailsAtom); 
     const [ , setOrgDetails] = useAtom(userOrganisationAtom);
-   
+    const [, setIsAdmin] = useAtom(isAdminAtom); 
+    const [, setIsContractor] = useAtom(isContractorAtom); 
+    const [, setIsMember] = useAtom(isMemberAtom); 
     /**
      * Submit Login Form
      * 
@@ -104,7 +106,10 @@ const LoginFormComponent = () => {
                 //Save to atom or Redux
                 setUserDetails(loginMutation.data.data.userDetails);
                 setOrgDetails(loginMutation.data.data.userOrganisation)
-                 
+                setIsAdmin(loginMutation.data.data.userDetails.user_access[0].access_level === UserAccess.admin)
+                setIsContractor(loginMutation.data.data.userDetails.user_access[0].access_level === UserAccess.constructor)
+                setIsMember(loginMutation.data.data.userDetails.user_access[0].access_level === UserAccess.member)
+
                 // If members redirect to member-dashboard
                 if(loginMutation.data.data.userDetails?.user_access[0].access_level === UserAccess.member) {
                     navigate(chursterLink.memberDashboard);
@@ -118,7 +123,17 @@ const LoginFormComponent = () => {
                 setOpen(true);
             }
         } 
-    },[loginMutation.isSuccess, loginMutation.status])
+    },[
+        signIn, 
+        setOpen, 
+        loginMutation.isSuccess, 
+        loginMutation.status, 
+        setIsAdmin, 
+        setUserDetails, 
+        setOrgDetails,
+        setIsContractor,
+        setIsMember
+    ])
 
      /**
      * If login then redirect to secure pages

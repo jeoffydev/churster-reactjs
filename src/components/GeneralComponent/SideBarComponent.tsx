@@ -1,6 +1,6 @@
 import React from 'react'    
 import { useAtom } from 'jotai';
-import { userOrganisationAtom, userDetailsAtom, isAdminAtom } from './../../Helpers/AuthAtomObject'; 
+import { userOrganisationAtom, isAdminAtom } from './../../Helpers/AuthAtomObject'; 
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import ChurchIcon from '@mui/icons-material/Church'; 
@@ -17,7 +17,7 @@ import { chursterString } from '../../Helpers/stringHelper';
 import AudiotrackIcon from '@mui/icons-material/Audiotrack';
 import PianoIcon from '@mui/icons-material/Piano';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'; 
 
 const style = {
     width: '100%',
@@ -29,7 +29,8 @@ const SideBarComponent = () => {
     const [orgDetails, ] = useAtom(userOrganisationAtom);  
     const [isAdmin, ] = useAtom(isAdminAtom);
     const labelName = orgDetails?.org_name ? orgDetails.org_name : "..."
-    const navigate = useNavigate() 
+    const navigate = useNavigate()   
+
     return  (<React.Fragment>  
                 <> 
                     {
@@ -53,21 +54,22 @@ const SideBarComponent = () => {
                                 </ListItem>
                             )
                         }
+                        
                         <ListItem button onClick={()=>navigate(chursterLink.events)}>
-                            <ListItemAvatar>
-                                <Avatar>
-                                    <CalendarMonthIcon />
-                                </Avatar>
-                            </ListItemAvatar>
-                            <ListItemText primary={chursterString.events}  />
-                        </ListItem>
-                        <ListItem button onClick={()=>navigate(chursterLink.members)}>
+                                <ListItemAvatar>
+                                    <Avatar>
+                                        <CalendarMonthIcon />
+                                    </Avatar>
+                                </ListItemAvatar>
+                                <ListItemText primary={chursterString.events}  />
+                        </ListItem>  
+                        <ListItem   button onClick={()=>navigate(chursterLink.members)}>
                             <ListItemAvatar>
                                 <Avatar>
                                     <PeopleAltIcon />
                                 </Avatar>
                             </ListItemAvatar>
-                            <ListItemText primary={chursterString.members}  />
+                            <ListItemText  primary={chursterString.members}  />
                         </ListItem>
                         <ListItem button onClick={()=>navigate(chursterLink.services)}>
                             <ListItemAvatar>
