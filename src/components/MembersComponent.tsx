@@ -102,7 +102,9 @@ const MembersComponent = () => {
         }
         createMutation.mutate(data); 
         setQueryMembers(true);
-        reset({ ...data })
+        reset({
+            ...data 
+        })
         
     }
      
