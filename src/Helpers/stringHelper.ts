@@ -57,7 +57,9 @@ export enum chursterString {
 
     //Members dashboard
     upcomingEvent = "Upcoming Event",
+    incomingEvent = "Incoming Event",
     myEvent = "My Event",
+    myEvents = "My Events",
     events = "Events",
 
     //loading

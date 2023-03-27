@@ -68,7 +68,7 @@ const MembersEventComponent = () => {
                     <Grid item xs={4}>
                         <Item>
                             <HeadingTypography>
-                                {chursterString.upcomingEvent}
+                                {chursterString.myEvents}
                             </HeadingTypography> 
 
                             <List
@@ -111,7 +111,7 @@ const MembersEventComponent = () => {
                     <Grid item xs={8}>
                         <Item>
                             <HeadingTypography>
-                                {chursterString.myEvent}
+                                {chursterString.incomingEvent}
                             </HeadingTypography>
                         </Item>
                         <Item style={{ marginTop: '0.3rem'}}> 
