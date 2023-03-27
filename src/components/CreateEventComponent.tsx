@@ -13,11 +13,14 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { chursterString } from '../Helpers/stringHelper';
 import TrendingFlatIcon from '@mui/icons-material/TrendingFlat';
-import { IEventTypes } from './../Types/chursterType';
+import { ICreateForm, IEventTypes, ICreateEvent } from './../Types/chursterType';
 import { useAtom } from 'jotai';
 import { organisationIDAtom } from '../Helpers/AuthAtomObject';
-import { useQuery } from 'react-query';
-import { getOrgEventsQuery } from '../Queries/EventQueries';
+import { useQuery, useMutation } from 'react-query';
+import { createEventQuery, getOrgEventsQuery } from '../Queries/EventQueries';
+import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
+import { useForm } from 'react-hook-form';
 
 const Item = styled(Paper)(() => ({
     backgroundColor: ExtraPalette.c_fff,
@@ -54,6 +57,26 @@ const Item = styled(Paper)(() => ({
     display: 'flex',  
  }));
 
+ 
+ const FormWrapper = styled('div')(()=>({ 
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    padding: '0.5rem',
+    margin:'0.3rem'
+ }));
+
+ const FormInput = styled('div')(()=>({
+    margin:'0.3rem',
+    '& input, select': { 
+        display: 'block', 
+    },
+    '& label': {
+        width: '100%',
+        textAlign: 'left'
+    }
+ }));
+
 const CreateEventComponent = () => {
 
     const [orgID, ] = useAtom(organisationIDAtom);  
@@ -63,6 +86,8 @@ const CreateEventComponent = () => {
         enabled: !!orgID,
         refetchInterval: 500
     });
+
+    const { register, handleSubmit,  formState: { errors }, reset } = useForm<ICreateEvent>();
  
     // placeholder/sample data from api
     const eventTeaser: IEventTypes[]  =  data?.data.organisationEvent;
@@ -76,10 +101,10 @@ const CreateEventComponent = () => {
                     return (
                         <div key={index}>
                             <BoxedDivMap key={index}>
-                                <BoxedCardContent key={index}>
-                                    <TypographyWrapper variant="body2" gutterBottom>
-                                        <span>{event.date}</span>
-                                    </TypographyWrapper>
+                                <BoxedCardContent key={index}> 
+                                        <Stack direction="row" spacing={1}> 
+                                            <Chip label={event.date} /> 
+                                        </Stack> 
                                     <TypographyWrapper variant="body2">
                                         <span>{event.title}</span>
                                     </TypographyWrapper>
@@ -96,6 +121,15 @@ const CreateEventComponent = () => {
             }
         </>
       );
+
+      //Create event form
+    const createMutation = useMutation(createEventQuery);
+
+    const onSubmit = (data: ICreateEvent ) => { 
+        if(data) { 
+            createMutation.mutate(data); 
+        } 
+    }
 
     return (
         <AdminLayoutComponent> 
@@ -114,7 +148,35 @@ const CreateEventComponent = () => {
                             <HeadingTypography>
                                 {chursterString.addNewEvent}
                             </HeadingTypography>
-                        </Item>
+                        </Item> 
+                        <>
+                            <FormWrapper>
+                                <form onSubmit={handleSubmit(onSubmit)}>  
+                                    <FormInput> 
+                                        <input type={'hidden'} defaultValue={'1'} className='form-control'  {...register("active", { required: true })} />
+                                        <input type={'hidden'} defaultValue={orgID} className='form-control'  {...register("organisation_id", { required: true })} />
+                                    </FormInput>
+                                    <FormInput>
+                                        <label>Title</label>
+                                        <input type={'text'} defaultValue="" className='form-control'  {...register("title", { required: true })} />
+                                        {errors.title && <span className='error'>Title is required</span>}
+                                    </FormInput>
+                                    <FormInput>
+                                        <label>Date</label>
+                                        <input type={'date'}  defaultValue="" className='form-control'  {...register("date", { required: true })} />
+                                        {errors.date && <span className='error'>Date is required</span>}
+                                    </FormInput>
+                                    <FormInput>
+                                        <label>Description</label>
+                                        <textarea  className='form-control' {...register("description", { required: true })} />
+                                        {errors.description && <span className='error'>Description is required</span>}
+                                    </FormInput>
+                                    <FormInput>
+                                        <input type="submit" className='btn btn-info' />
+                                    </FormInput>
+                                </form>
+                            </FormWrapper>
+                        </> 
                     </Grid>
                 </Grid>
             </BoxWrapper>  

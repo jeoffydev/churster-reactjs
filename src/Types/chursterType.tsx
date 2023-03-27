@@ -69,12 +69,16 @@ export interface IUserOptions {
 }
 
 export interface IEventTypes {
-  id: number;
+  id?: number;
   active: number | string;
   title: string;
   description: string;
   date: string;
 } 
+
+export interface ICreateEvent extends IEventTypes {
+   organisation_id: number;
+}
 
 export const UserAccess = {
   admin: 1,
