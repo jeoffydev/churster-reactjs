@@ -130,6 +130,7 @@ const MembersComponent = () => {
                                                         <PersonIcon />
                                                     </ListItemIcon>
                                                     <ListItemText primary={user.name} />
+                                                    <ListItemText primary={user.email} />
                                                 </ListItemButton>
                                         </div>
                                     )

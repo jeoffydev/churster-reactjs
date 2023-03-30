@@ -6,6 +6,6 @@ export default function useGetContractorMembers( isAdmin: boolean, enableMember:
     return   useQuery( "contractorGetAllMembers", () => isAdmin ? adminGetAllContractorsQuery() : contractorGetAllMembersQuery(),
     {
         enabled: enableMember, 
-        cacheTime: 1000
+        refetchInterval: 1500
     });
 }
