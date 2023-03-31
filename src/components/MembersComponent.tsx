@@ -22,6 +22,8 @@ import { userOrganisationAtom, isAdminAtom  } from './../Helpers/AuthAtomObject'
 import { useMutation } from 'react-query';
 import { getAllOrganisationsQuery } from '../Queries/OrganisationQueries';
 import useGetContractorMembers from './CustomHookComponent/useContractMembersQuery';
+import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
 
 const Item = styled(Paper)(() => ({
     backgroundColor: ExtraPalette.c_fff,
@@ -129,9 +131,11 @@ const MembersComponent = () => {
                                                     <ListItemIcon>
                                                         <PersonIcon />
                                                     </ListItemIcon>
-                                                    <ListItemText primary={user.name} />
-                                                    <ListItemText primary={user.email} />
-                                                </ListItemButton>
+                                                    <ListItemText primary={user.name} /> 
+                                                    <Stack direction="row" spacing={1}> 
+                                                        <Chip label={user.email} /> 
+                                                    </Stack>  
+                                                </ListItemButton> 
                                         </div>
                                     )
                                 }) 
