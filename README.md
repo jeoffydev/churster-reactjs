@@ -44,6 +44,8 @@ Open [http://localhost:8000]
 
 In this project directory, you can run:
 
+Node version - v16.14.0
+
 ### `npm start`
 
 Runs the app in the development mode.\
