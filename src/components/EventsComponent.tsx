@@ -14,9 +14,10 @@ import ListItemText from '@mui/material/ListItemText';
 import PersonIcon from'@mui/icons-material/Person';
 import {   IEventTypes } from '../Types/chursterType';
 import { useAtom } from 'jotai';
-import {  isAdminAtom, organisationIDAtom } from './../Helpers/AuthAtomObject';
-import { useMutation } from 'react-query'; 
+import {  isAdminAtom, organisationIDAtom } from './../Helpers/AuthAtomObject'; 
 import { getOrgEventsQuery } from '../Queries/EventQueries';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 const Item = styled(Paper)(() => ({
     backgroundColor: ExtraPalette.c_fff,
@@ -68,6 +69,8 @@ const EventsComponent = () => {
                                                             <PersonIcon />
                                                         </ListItemIcon>
                                                         <ListItemText primary={event.title} />
+                                                        <EditIcon color={'info'} />
+                                                        <DeleteForeverIcon color={'error'} />
                                                     </ListItemButton>
                                             </div>
                                         )

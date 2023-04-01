@@ -24,6 +24,8 @@ import { getAllOrganisationsQuery } from '../Queries/OrganisationQueries';
 import useGetContractorMembers from './CustomHookComponent/useContractMembersQuery';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 const Item = styled(Paper)(() => ({
     backgroundColor: ExtraPalette.c_fff,
@@ -131,10 +133,12 @@ const MembersComponent = () => {
                                                     <ListItemIcon>
                                                         <PersonIcon />
                                                     </ListItemIcon>
-                                                    <ListItemText primary={user.name} /> 
+                                                    {/* <ListItemText primary={user.name} />  */}
                                                     <Stack direction="row" spacing={1}> 
                                                         <Chip label={user.email} /> 
                                                     </Stack>  
+                                                    <EditIcon color={'info'} />
+                                                    <DeleteForeverIcon color={'error'} />
                                                 </ListItemButton> 
                                         </div>
                                     )
