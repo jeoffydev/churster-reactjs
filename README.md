@@ -1,8 +1,8 @@
 # App
 
-Church Roster Management App
-App name is Churster
-Church membership and event scheduling
+- Church Roster Management App
+- App name is Churster
+- Church membership and event scheduling
 # DEMO
 
 This project is a starting project with Authentication (Updated) [DEMO](https://share.vidyard.com/watch/tihtpczbuUcFDLBrKP8cTG?).
